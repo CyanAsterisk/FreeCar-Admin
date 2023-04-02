@@ -6,6 +6,7 @@ import styles from './style/index.module.less';
 
 export default function LoginBanner() {
   const t = useLocale(locale);
+  
   const data = [
     {
       slogan: t['login.banner.slogan1'],

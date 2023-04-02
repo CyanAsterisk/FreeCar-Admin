@@ -60,6 +60,8 @@ export default function LoginForm() {
   function onSubmitClick() {
     formRef.current.validate().then((values) => {
       login(values);
+      console.log(values);
+
     });
   }
 
@@ -111,17 +113,10 @@ export default function LoginForm() {
             <Checkbox checked={rememberPassword} onChange={setRememberPassword}>
               {t['login.form.rememberPassword']}
             </Checkbox>
-            <Link>{t['login.form.forgetPassword']}</Link>
+            {/* <Link>{t['login.form.forgetPassword']}</Link> */}
           </div>
           <Button type="primary" long onClick={onSubmitClick} loading={loading}>
             {t['login.form.login']}
-          </Button>
-          <Button
-            type="text"
-            long
-            className={styles['login-form-register-btn']}
-          >
-            {t['login.form.register']}
           </Button>
         </Space>
       </Form>
