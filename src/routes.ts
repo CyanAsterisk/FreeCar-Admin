@@ -1,31 +1,31 @@
 import auth, { AuthParams } from '@/utils/authentication';
 import { useEffect, useMemo, useState } from 'react';
+import {
+  IconUser
+} from '@arco-design/web-react/icon'
+import type { IconProps } from '@arco-design/web-react/icon';
 
 export type IRoute = AuthParams & {
   name: string;
   key: string;
-  // 当前页是否展示面包屑
   breadcrumb?: boolean;
   children?: IRoute[];
-  // 当前路由是否渲染菜单项，为 true 的话不会在菜单中显示，但可通过路由地址访问。
-  ignore?: boolean;
+  hideInMenu?: boolean; // 是否在菜单中隐藏子路由，为了实现某些三级路由不展示在菜单中的需求
+  icon?: React.ForwardRefExoticComponent<
+    IconProps & React.RefAttributes<unknown>
+  >;
 };
 
 export const routes: IRoute[] = [
   {
-    name: 'menu.dashboard',
-    key: 'dashboard',
-    children: [
-      {
-        name: 'menu.dashboard.workplace',
-        key: 'dashboard/workplace',
-      },
-    ],
-  },
-  {
     name: 'Example',
     key: 'example',
   },
+  {
+    name: 'User',
+    key: 'user',
+    icon:IconUser
+  }
 ];
 
 export const getName = (path: string, routes) => {
@@ -39,8 +39,8 @@ export const getName = (path: string, routes) => {
   });
 };
 
-export const generatePermission = (role: string) => {
-  const actions = role === 'admin' ? ['*'] : ['read'];
+export const generatePermission = (level: string) => {
+  const actions = level === '3' ? [] : ['*'];
   const result = {};
   routes.forEach((item) => {
     if (item.children) {
@@ -86,7 +86,8 @@ const useRoute = (userPermission): [IRoute[], string] => {
   useEffect(() => {
     const newRoutes = filterRoute(routes);
     setPermissionRoute(newRoutes);
-  }, [JSON.stringify(userPermission)]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userPermission]);
 
   const defaultRoute = useMemo(() => {
     const first = permissionRoute[0];
