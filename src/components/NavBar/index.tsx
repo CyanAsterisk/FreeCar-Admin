@@ -90,7 +90,7 @@ function Navbar({ show }: { show: boolean }) {
 
   const droplist = (
     <Menu onClickMenuItem={onMenuItemClick}>
-      <Menu.SubMenu
+      {/* <Menu.SubMenu
         key="role"
         title={
           <>
@@ -127,7 +127,7 @@ function Navbar({ show }: { show: boolean }) {
         </Menu.Item>
       </Menu.SubMenu>
 
-      <Divider style={{ margin: '4px 0' }} />
+      <Divider style={{ margin: '4px 0' }} /> */}
       <Menu.Item key="logout">
         <IconPoweroff className={styles['dropdown-icon']} />
         {t['navbar.logout']}
@@ -139,8 +139,7 @@ function Navbar({ show }: { show: boolean }) {
     <div className={styles.navbar}>
       <div className={styles.left}>
         <div className={styles.logo}>
-          <Logo />
-          <div className={styles['logo-name']}>Arco Pro</div>
+          <div className={styles['logo-name']}>FreeCar</div>
         </div>
       </div>
       <ul className={styles.right}>
@@ -190,7 +189,7 @@ function Navbar({ show }: { show: boolean }) {
             />
           </Tooltip>
         </li>
-        <Settings />
+        {/* <Settings /> */}
         {userInfo && (
           <li>
             <Dropdown droplist={droplist} position="br">

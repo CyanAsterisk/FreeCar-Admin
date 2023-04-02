@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { ConfigProvider } from '@arco-design/web-react';
 import zhCN from '@arco-design/web-react/es/locale/zh-CN';
 import enUS from '@arco-design/web-react/es/locale/en-US';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import rootReducer from './store';
 import PageLayout from './layout';
@@ -15,6 +15,7 @@ import Login from './pages/login';
 import checkLogin from './utils/checkLogin';
 import changeTheme from './utils/changeTheme';
 import useStorage from './utils/useStorage';
+import { RecoilRoot } from 'recoil';
 import './mock';
 
 const store = createStore(rootReducer);
@@ -68,30 +69,33 @@ function Index() {
 
   return (
     <BrowserRouter>
-      <ConfigProvider
-        locale={getArcoLocale()}
-        componentConfig={{
-          Card: {
-            bordered: false,
-          },
-          List: {
-            bordered: false,
-          },
-          Table: {
-            border: false,
-          },
-        }}
-      >
-        <Provider store={store}>
-          <GlobalContext.Provider value={contextValue}>
-            <Switch>
-              <Route path="/login" component={Login} />
-              <Route path="/" component={PageLayout} />
-            </Switch>
-          </GlobalContext.Provider>
-        </Provider>
-      </ConfigProvider>
-    </BrowserRouter>
+      <RecoilRoot>
+        <ConfigProvider
+          locale={getArcoLocale()}
+          componentConfig={{
+            Card: {
+              bordered: false,
+            },
+            List: {
+              bordered: false,
+            },
+            Table: {
+              border: false,
+            },
+          }}
+        >
+          <Provider store={store}>
+
+            <GlobalContext.Provider value={contextValue}>
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/*" element={<PageLayout />} />
+              </Routes>
+            </GlobalContext.Provider>
+          </Provider>
+        </ConfigProvider>
+      </RecoilRoot>
+    </BrowserRouter >
   );
 }
 
