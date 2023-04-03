@@ -13,5 +13,7 @@ export const getSomeUserInfo = async () => {
     const data = await axios.get(
         `/admin/user/some`,
     );
+    console.log(data);
+
     return data;
 }

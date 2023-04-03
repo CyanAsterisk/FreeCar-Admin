@@ -18,7 +18,7 @@ import './mock';
 import { getColumns } from './constants';
 import './style/index.less'
 const { Title } = Typography;
-import AddUser from './components/addUser/index.less';
+import AddUser from './components/addUser/index.tsx';
 import { getSomeUserInfo } from '@/services/user';
 
 interface searchItem {
@@ -44,8 +44,7 @@ function SearchTable() {
   const [loading, setLoading] = useState(true);
   const [formParams, setFormParams] = useState({});
   const addUserRef = useRef<ReactChild>(null);
-
-
+  const [showIntialization, setShowstate] = useState('none');
   useEffect(() => {
     fetchData();
     const data = getSomeUserInfo()
@@ -54,7 +53,7 @@ function SearchTable() {
   }, [JSON.stringify(formParams)]);
 
   const addUser = () => { //添加用户
-
+    setShowstate('block')
   }
 
   function fetchData() {
@@ -116,13 +115,13 @@ function SearchTable() {
             <Button>{t['searchTable.operations.upload']}</Button> */}
         </Space>
         <Space>
-          <Button type="primary" icon={<IconUserAdd />}>
+          <Button type="primary" icon={<IconUserAdd />} onClick={addUser}>
             {t['searchTable.operations.add']}
           </Button>
         </Space>
       </div>
       {/* </PermissionWrapper> */}
-      <AddUser showIntialization={false} ></AddUser>
+      <AddUser showIntialization={showIntialization} setShowState={setShowstate}/>
       <Table
         rowKey="id"
         loading={loading}

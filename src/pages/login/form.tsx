@@ -9,12 +9,12 @@ import {
 import { FormInstance } from '@arco-design/web-react/es/Form';
 import { IconLock, IconUser } from '@arco-design/web-react/icon';
 import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
+import axios from '../../utils/request';
 import useStorage from '@/utils/useStorage';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
 import styles from './style/index.module.less';
-
+import login from '../../services/login'
 export default function LoginForm() {
   const formRef = useRef<FormInstance>();
   const [errorMessage, setErrorMessage] = useState('');
@@ -40,17 +40,27 @@ export default function LoginForm() {
   }
 
   function login(params) {
+    const { userName, password } = params
     setErrorMessage('');
     setLoading(true);
+    const body = {
+      username: userName,
+      password: password
+    }
+    //https://lanlance.cn:9528
+    //https://freecar.lanlance.cn
+    //https://10.20.192.105:8080
     axios
-      .post('/api/user/login', params)
+      .post('http://10.20.192.105:8080/login/admin', body)
       .then((res) => {
-        const { status, msg } = res.data;
+        /* const { status, msg } = res.data;
         if (status === 'ok') {
           afterLoginSuccess(params);
         } else {
           setErrorMessage(msg || t['login.form.login.errMsg']);
-        }
+        } */
+        console.log(res);
+
       })
       .finally(() => {
         setLoading(false);
@@ -58,11 +68,14 @@ export default function LoginForm() {
   }
 
   function onSubmitClick() {
-    formRef.current.validate().then((values) => {
+    /* formRef.current.validate().then((values) => {
       login(values);
       console.log(values);
 
-    });
+    }); */
+    const data = formRef.current.getFieldsValue()
+    console.log(data);
+    login(data)
   }
 
   // 读取 localStorage，设置初始值
