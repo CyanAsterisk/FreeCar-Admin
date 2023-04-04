@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@arco-design/web-react';
 import PermissionWrapper from '@/components/PermissionWrapper';
-import { IconDownload, IconPlus, IconUserAdd } from '@arco-design/web-react/icon';
+import { IconDownload, IconPlus, } from '@arco-design/web-react/icon';
 import axios from 'axios';
 import useLocale from '@/utils/useLocale';
 import SearchForm from './form';
@@ -18,8 +18,7 @@ import './mock';
 import { getColumns } from './constants';
 import './style/index.less'
 const { Title } = Typography;
-import AddUser from './components/addUser/index.tsx';
-import UpdateUser from './components/updateUser';
+import AddCar from './components/addCar/index.tsx';
 import { getSomeUserInfo } from '@/services/user';
 
 interface searchItem {
@@ -53,15 +52,12 @@ function SearchTable() {
   useEffect(() => {
 
     fetchData();
-    const data = getSomeUserInfo()
-    console.log(data);
-    /* fetch('https://freecar.lanlance.cn/admin/user/some',{
-      method:'get'
-    }) */
+    // const data = getSomeUserInfo()
+    // console.log(data);
 
   }, [showIntialization, showUpdate, JSON.stringify(formParams)]);
 
-  const addUser = () => { //添加用户
+  const addCar = () => { //添加用户
     setShowstate('block')
   }
 
@@ -125,14 +121,13 @@ function SearchTable() {
             <Button>{t['searchTable.operations.upload']}</Button> */}
         </Space>
         <Space>
-          <Button type="primary" icon={<IconUserAdd />} onClick={addUser}>
+          <Button type="primary" icon={<IconPlus />} onClick={addCar}>
             {t['searchTable.operations.add']}
           </Button>
         </Space>
       </div>
       {/* </PermissionWrapper> */}
-      <AddUser showIntialization={showIntialization} setShowState={setShowstate} />
-      <UpdateUser showUpdate={showUpdate} setShowUpdate={setShowUpdate} />
+      <AddCar showIntialization={showIntialization} setShowState={setShowstate} />
       <Table
         rowKey="id"
         loading={loading}

@@ -27,12 +27,6 @@ export function getColumns(
   fetchData: () => void,
   //setData: Dispatch<SetStateAction<any[]>>
 ) {
-  const handleUpdate = () => {
-    console.log('update');
-
-    setUpdateShow();
-    return null
-  };
   /**
  * @删除用户
  */
@@ -45,39 +39,45 @@ export function getColumns(
   };
   return [
     {
-      title: t['user.id'],
+      title: 'ID',
       dataIndex: 'id',
       render: (value) => <Text copyable>{value}</Text>,
     },
     {
-      title: t['user.name'],
-      dataIndex: 'name',
+      title: 'Driver ID',
+      dataIndex: 'driverId',
+      //render: (value) => <Text copyable>{value}</Text>,
     },
     {
-      title: t['user.phone.number'],
-      dataIndex: 'phone',
+      title: 'Driver Avatar Url',
+      dataIndex: 'driverAvatarUrl',
     },
     {
-      title: 'Avatar Blob ID',
-      dataIndex: 'avater',
-    }, 
+      title: 'Position Latitude',
+      dataIndex: 'positionLatitude',
+    },
     {
-      title: 'Open ID',
-      dataIndex: 'openId',
+      title: 'Position Longitude',
+      dataIndex: 'positionLongitude',
+    },
+    {
+      title: 'Trip ID',
+      dataIndex: 'tripId',
+    },
+    {
+      title: 'Power',
+      dataIndex: 'power',
+    },
+    {
+      title: 'Plate Number',
+      dataIndex: 'plateNumber',
     },
     {
       title: t['searchTable.columns.operations'],
       dataIndex: 'operations',
-      headerCellStyle: { paddingLeft: '2vw' },
+      headerCellStyle: { paddingLeft: '1vw' },
       render: (_, record) => (
         <>
-          <Button
-            type="text"
-            size="small"
-            onClick={handleUpdate}
-          >
-            {t['searchTable.columns.operations.update']}
-          </Button>
           <Popconfirm
             focusLock
             title='Confirm'

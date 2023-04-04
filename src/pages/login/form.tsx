@@ -9,7 +9,8 @@ import {
 import { FormInstance } from '@arco-design/web-react/es/Form';
 import { IconLock, IconUser } from '@arco-design/web-react/icon';
 import React, { useEffect, useRef, useState } from 'react';
-import axios from '../../utils/request';
+//import axios from '../../utils/request';
+import axios from 'axios'
 import useStorage from '@/utils/useStorage';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
@@ -38,8 +39,25 @@ export default function LoginForm() {
     // 跳转首页
     window.location.href = '/';
   }
-
   function login(params) {
+    setErrorMessage('');
+    setLoading(true);
+    axios
+      .post('/api/user/login', params)
+      .then((res) => {
+        const { status, msg } = res.data;
+        if (status === 'ok') {
+          afterLoginSuccess(params);
+        } else {
+          setErrorMessage(msg || t['login.form.login.errMsg']);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  /* function login(params) {
     const { userName, password } = params
     setErrorMessage('');
     setLoading(true);
@@ -50,22 +68,33 @@ export default function LoginForm() {
     //https://lanlance.cn:9528
     //https://freecar.lanlance.cn
     //https://10.20.192.105:8080
-    axios
-      .post('https://10.16.79.44:8080/login/admin', body)
+    console.log(body);
+
+     axios({
+       headers: {
+       //  'Content-Type': 'multipart/form-data'
+       },
+       method: 'post',
+       url: 'http://43.138.9.224:9991/login/admin',
+       data: body,
+ 
+     })
       .then((res) => {
-        /* const { status, msg } = res.data;
+        const { status, msg } = res.data;
         if (status === 'ok') {
           afterLoginSuccess(params);
         } else {
           setErrorMessage(msg || t['login.form.login.errMsg']);
-        } */
+        }
         console.log(res);
 
+      }).catch((err) => {
+        console.log(err)
       })
       .finally(() => {
         setLoading(false);
       });
-  }
+  } */
 
   function onSubmitClick() {
     /* formRef.current.validate().then((values) => {
@@ -74,7 +103,7 @@ export default function LoginForm() {
 
     }); */
     const data = formRef.current.getFieldsValue()
-    console.log(data);
+    //console.log(data);
     login(data)
   }
 

@@ -1,7 +1,8 @@
 import auth, { AuthParams } from '@/utils/authentication';
 import { useEffect, useMemo, useState } from 'react';
 import {
-  IconUser
+  IconUser,
+  IconTags
 } from '@arco-design/web-react/icon'
 import type { IconProps } from '@arco-design/web-react/icon';
 
@@ -24,7 +25,12 @@ export const routes: IRoute[] = [
   {
     name: 'User',
     key: 'user',
-    icon:IconUser
+    icon: IconUser
+  },
+  {
+    name: 'Car',
+    key: 'car',
+    icon: IconTags
   }
 ];
 
