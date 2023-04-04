@@ -2,7 +2,11 @@ import auth, { AuthParams } from '@/utils/authentication';
 import { useEffect, useMemo, useState } from 'react';
 import {
   IconUser,
-  IconTags
+  IconTags,
+  IconIdcard,
+  IconPen,
+  IconList,
+  IconUndo 
 } from '@arco-design/web-react/icon'
 import type { IconProps } from '@arco-design/web-react/icon';
 
@@ -31,6 +35,30 @@ export const routes: IRoute[] = [
     name: 'Car',
     key: 'car',
     icon: IconTags
+  },
+  {
+    name: 'Profile',
+    key: 'profile',
+    icon: IconIdcard,
+    children: [
+
+      {
+        name: "Profile List",
+        key: 'profile/list',
+        icon: IconList
+      },
+      {
+        name: 'Check',
+        key: 'profile/check',
+        icon: IconPen,
+        //hideInMenu:true
+      },
+    ]
+  },
+  {
+    name:"Ttip",
+    key:'trip',
+    icon:IconUndo
   }
 ];
 
