@@ -5,7 +5,7 @@
 import Axios from 'axios'
 
 const axios = Axios.create({
-    baseURL: 'https://10.20.192.105:8080',
+    baseURL: 'https://freecar.lanlance.cn',
     timeout: 5000,
 });
 /* axios.interceptors.request.use((config) => {

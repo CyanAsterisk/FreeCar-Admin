@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Typography, Badge } from '@arco-design/web-react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import { Button, Typography, Badge, Popconfirm, Message } from '@arco-design/web-react';
 import styles from './style/index.module.less';
 import IconText from './icons/text.svg';
 import IconHorizontalVideo from './icons/horizontal.svg';
@@ -17,10 +17,32 @@ const ContentIcon = [
   <IconVerticalVideo key={2} />,
 ];
 
+/**
+* @编辑用户
+*/
+
 export function getColumns(
   t: unknown,
-  callback: (record: Record<string, unknown>, type: string) => Promise<void>
+  setUpdateShow: () => void,
+  fetchData: () => void,
+  //setData: Dispatch<SetStateAction<any[]>>
 ) {
+  const handleUpdate = () => {
+    console.log('update');
+
+    setUpdateShow();
+    return null
+  };
+  /**
+ * @删除用户
+ */
+  const handleDelete = () => {
+    console.log('delete');
+    //发送网络请求删除数据
+    //刷新页面
+    fetchData();
+    return null
+  };
   return [
     {
       title: t['user.id'],
@@ -44,17 +66,36 @@ export function getColumns(
           <Button
             type="text"
             size="small"
-            onClick={() => callback(record, 'update')}
+            onClick={handleUpdate}
           >
             {t['searchTable.columns.operations.update']}
           </Button>
-          <Button
-            type="text"
-            size="small"
-            onClick={() => callback(record, 'delete')}
+          <Popconfirm
+            focusLock
+            title='Confirm'
+            content='Are you sure you want to delete?'
+            onOk={() => {
+              Message.info({
+                content: 'ok',
+              });
+              handleDelete();
+            }}
+            onCancel={() => {
+              Message.error({
+                content: 'cancel',
+              });
+            }}
+
           >
-            {t['searchTable.columns.operations.delete']}
-          </Button>
+            <Button
+              type="text"
+              size="small"
+            //onClick={handleDelete}
+            >
+              {t['searchTable.columns.operations.delete']}
+            </Button>
+          </Popconfirm>
+
         </>
       ),
     },

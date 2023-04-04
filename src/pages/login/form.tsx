@@ -51,7 +51,7 @@ export default function LoginForm() {
     //https://freecar.lanlance.cn
     //https://10.20.192.105:8080
     axios
-      .post('http://10.20.192.105:8080/login/admin', body)
+      .post('https://10.16.79.44:8080/login/admin', body)
       .then((res) => {
         /* const { status, msg } = res.data;
         if (status === 'ok') {

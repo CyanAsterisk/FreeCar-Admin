@@ -19,6 +19,7 @@ import { getColumns } from './constants';
 import './style/index.less'
 const { Title } = Typography;
 import AddUser from './components/addUser/index.tsx';
+import UpdateUser from './components/updateUser';
 import { getSomeUserInfo } from '@/services/user';
 
 interface searchItem {
@@ -33,11 +34,12 @@ interface searchItem {
 function SearchTable() {
   const t = useLocale(locale);
 
-  const tableCallback = async (record, type) => {
-    console.log(record, type);
-  };
 
-  const columns = useMemo(() => getColumns(t, tableCallback), [t]);
+  const [showUpdate, setShowUpdate] = useState('none');
+  const handleUpdate = () => {
+    setShowUpdate('block');
+  }
+  //console.log(columns);
 
   const [primaryData, setprimaryData] = useState([]);
   const [data, setData] = useState([]);
@@ -45,12 +47,16 @@ function SearchTable() {
   const [formParams, setFormParams] = useState({});
   const addUserRef = useRef<ReactChild>(null);
   const [showIntialization, setShowstate] = useState('none');
-  useEffect(() => {
-    fetchData();
-    const data = getSomeUserInfo()
-    console.log(data);
 
-  }, [JSON.stringify(formParams)]);
+  const columns = useMemo(() => getColumns(t, handleUpdate, fetchData/* tableCallback */), [t]);
+
+  useEffect(() => {
+
+    fetchData();
+    // const data = getSomeUserInfo()
+    // console.log(data);
+
+  }, [showIntialization, showUpdate, JSON.stringify(formParams)]);
 
   const addUser = () => { //添加用户
     setShowstate('block')
@@ -58,6 +64,7 @@ function SearchTable() {
 
   function fetchData() {
     //const { current, pageSize } = pagination;
+
     setLoading(true);
     axios
       .get('/api/list', {
@@ -67,7 +74,7 @@ function SearchTable() {
         },
       })
       .then((res) => {
-        console.log(res.data.list); //一系列数据
+        // console.log(res.data.list); //一系列数据
         // console.log(res.data.total);
         console.log(formParams);
         setprimaryData(res.data.list);
@@ -79,7 +86,7 @@ function SearchTable() {
   const searchData = (target: searchItem) => {
     console.log(target);
     const { id, name, phone } = target;
-    if (id === name === phone) {
+    if (id === undefined && name === undefined && phone === undefined) {
       return false
     }
     let find = (id === undefined) ? phone : id;
@@ -121,11 +128,23 @@ function SearchTable() {
         </Space>
       </div>
       {/* </PermissionWrapper> */}
-      <AddUser showIntialization={showIntialization} setShowState={setShowstate}/>
+      <AddUser showIntialization={showIntialization} setShowState={setShowstate} />
+      <UpdateUser showUpdate={showUpdate} setShowUpdate={setShowUpdate} />
       <Table
         rowKey="id"
         loading={loading}
         //onChange={onChangeTable}
+        columns={columns}
+        data={data}
+        pagination={false}
+      />
+      <Table
+        className={'allData'}
+        rowKey="id"
+        loading={loading}
+        //onChange={onChangeTable}
+        indentSize={15}
+        //showHeader={false}
         columns={columns}
         data={data}
         pagination={false}

@@ -40,18 +40,7 @@ function SearchForm(props: {
     props.resetData();
   }
 
-  /**
-   * @删除用户
-   */
-  const handleDelete = () => {
-    return null
-  };
-  /**
- * @编辑用户
- */
-  const handleUpdate = () => {
-    return null
-  };
+
 
   const colSpan = lang === 'zh-CN' ? 8 : 12;
 

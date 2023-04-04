@@ -4,40 +4,43 @@ const FormItem = Form.Item;
 import './index.less'
 import { IconCloseCircle } from '@arco-design/web-react/icon';
 import addUser, { addUserInfo } from '../../../../services/addUser'
-interface IAddUserProps {
-    setShowState: (display) => void,
-    showIntialization: string
+interface IUpadateUserProps {
+    setShowUpdate: (display) => void,
+    showUpdate: string
 }
 
-const AddUser = ((props: IAddUserProps) => {
-    //通过父组件传参来决定是否展示 AddUser 页面
-    const { showIntialization, setShowState } = props
+const UpdateUser = ((props: IUpadateUserProps) => {
+    //通过父组件传参来决定是否展示 UpdateUser 页面
+    const { showUpdate, setShowUpdate } = props
     const [form] = Form.useForm();
     const divRef = useRef(null)
 
     /* 关闭页面 */
     const closeUserAddPage = () => {
-        setShowState('none')
+        setShowUpdate('none')
     }
     //提交请求
     const handleClick = () => {
         const data = form.getFieldsValue()
         console.log(data);
-        const res = addUser(data as addUserInfo).then((res) => {
+        /* const res = addUser(data as addUserInfo).then((res) => {
             console.log(res);
             return res
         })
-        console.log(res);
-        form.resetFields();
+        console.log(res); */
+        //*显示 已修改成功？
+        // code
     }
     useEffect(() => {
-        setShowState(showIntialization)
-    }, [showIntialization])
+        setShowUpdate(showUpdate)
+
+
+    }, [showUpdate])
     return (
-        <div className='addUserBox' ref={divRef} style={{ display: `${showIntialization}` }}>
+        <div className='updateUserBox' ref={divRef} style={{ display: `${showUpdate}` }}>
 
             <Form
-                className={'addUserForm'}
+                className={'updateUserForm'}
                 form={form}
                 autoComplete='off'
                 layout={'vertical'}
@@ -74,7 +77,7 @@ const AddUser = ((props: IAddUserProps) => {
                 >
                     <Input placeholder='please enter the phone number' />
                 </FormItem>
-                <FormItem
+                {/* <FormItem
                     label='Avatar Blob Id'
                     field='avatar_blod_id'
                     required
@@ -87,7 +90,7 @@ const AddUser = ((props: IAddUserProps) => {
                     required
                 >
                     <Input placeholder='please enter the open id' />
-                </FormItem>
+                </FormItem> */}
 
                 <FormItem wrapperCol={{ offset: 5 }}>
                     <Button type='primary' htmlType='submit' onClick={handleClick}>
@@ -107,4 +110,4 @@ const AddUser = ((props: IAddUserProps) => {
     );
 })
 
-export default AddUser
+export default UpdateUser
