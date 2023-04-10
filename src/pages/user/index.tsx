@@ -9,7 +9,8 @@ import {
 } from '@arco-design/web-react';
 import PermissionWrapper from '@/components/PermissionWrapper';
 import { IconDownload, IconPlus, IconUserAdd } from '@arco-design/web-react/icon';
-import axios from 'axios';
+import axios from '../../utils/request';
+import Axios from 'axios'
 import useLocale from '@/utils/useLocale';
 import SearchForm from './form';
 import locale from './locale';
@@ -20,7 +21,7 @@ import './style/index.less'
 const { Title } = Typography;
 import AddUser from './components/addUser/index.tsx';
 import UpdateUser from './components/updateUser';
-import { getSomeUserInfo } from '@/services/user';
+import { getSomeUserInfo, getAllUserInfo } from '@/services/user/user';
 
 interface searchItem {
   id: unknown | undefined
@@ -42,49 +43,62 @@ function SearchTable() {
   //console.log(columns);
 
   const [primaryData, setprimaryData] = useState([]);
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [formParams, setFormParams] = useState({});
-  const addUserRef = useRef<ReactChild>(null);
-  const [showIntialization, setShowstate] = useState('none');
+  const [someData, setSomeData] = useState([]);
+  const [allData, setAllData] = useState([]);
+  const [primarySomeData, setPrimarySomeData] = useState([]);
+  const [primaryAllData, setPrimaryAllData] = useState([]);
+  const [record, setRecord] = useState(null)
+  const [data, setData] = useState([])
 
-  const columns = useMemo(() => getColumns(t, handleUpdate, fetchData/* tableCallback */), [t]);
+  const [loading, setLoading] = useState(true);
+  // const addUserRef = useRef<ReactChild>(null);
+
+  const [formParams, setFormParams] = useState({});
+  const [showIntialization, setShowstate] = useState('none');
+  const fetchSomeData = async () => {
+    setLoading(true)
+    const res = await getSomeUserInfo()
+    const newArr = []
+    res.data.users.map((item) => {
+      newArr.push(
+        Object.assign({}, item, { 'key': `${item.account_id}+${item.open_id}` })
+      )
+    })
+    setData(newArr)
+    setprimaryData(newArr)
+    setLoading(false)
+  }
+  const fetchRestData = async () => {
+    const res = await getAllUserInfo();
+    console.log(res);
+    const restArr = []
+    res.data.users.map((item) => {
+      restArr.push(
+        Object.assign({}, item, { 'key': `${item.account_id}+${item.open_id}` })
+      )
+    })
+
+    setData(restArr)
+    setprimaryData(Array.from(new Set(primaryData.concat(restArr))));
+
+  }
+  const fetchAllData = async () => {
+    await fetchSomeData();
+    await fetchRestData()
+
+  }
+
+  const columns = useMemo(() => getColumns(t, handleUpdate, fetchAllData, setRecord), [t]);
 
   useEffect(() => {
-
-    fetchData();
-    const data = getSomeUserInfo()
-    console.log(data);
-    /* fetch('https://freecar.lanlance.cn/admin/user/some',{
-      method:'get'
-    }) */
-
+    fetchAllData()
   }, [showIntialization, showUpdate, JSON.stringify(formParams)]);
 
   const addUser = () => { //添加用户
     setShowstate('block')
   }
 
-  function fetchData() {
-    //const { current, pageSize } = pagination;
 
-    setLoading(true);
-    axios
-      .get('/api/list', {
-        params: {
-          //page: current,
-          //pageSize,
-        },
-      })
-      .then((res) => {
-        // console.log(res.data.list); //一系列数据
-        // console.log(res.data.total);
-        console.log(formParams);
-        setprimaryData(res.data.list);
-        setData(res.data.list);
-        setLoading(false);
-      });
-  }
 
   const searchData = (target: searchItem) => {
     console.log(target);
@@ -94,18 +108,17 @@ function SearchTable() {
     }
     let find = (id === undefined) ? phone : id;
     find = (find === undefined) ? name : find;
-
     primaryData.map((item) => {
-      if (item.id === find || item.name === find /* || item.phone === find */) {
+
+      if (JSON.stringify(item.account_id) === find || item.username === find || JSON.stringify(item.phone_number) === find) {
         setData([item])
       }
     })
 
   }
   const resetData = () => {
-    console.log(primaryData);
-
-    setData(primaryData);
+    setData(primaryData)
+    
   }
 
   return (
@@ -132,26 +145,28 @@ function SearchTable() {
       </div>
       {/* </PermissionWrapper> */}
       <AddUser showIntialization={showIntialization} setShowState={setShowstate} />
-      <UpdateUser showUpdate={showUpdate} setShowUpdate={setShowUpdate} />
+      <UpdateUser showUpdate={showUpdate} setShowUpdate={setShowUpdate} record={record} />
       <Table
-        rowKey="id"
+        rowKey="key"
         loading={loading}
         //onChange={onChangeTable}
         columns={columns}
+        // data={someData}
         data={data}
         pagination={false}
       />
-      <Table
+      {/* <Table
         className={'allData'}
-        rowKey="id"
-        loading={loading}
+        rowKey="key"
+        noDataElement={' '}
+        //loading={loading}
         //onChange={onChangeTable}
         indentSize={15}
         //showHeader={false}
         columns={columns}
-        data={data}
+        data={allData}
         pagination={false}
-      />
+      /> */}
     </Card>
   );
 }

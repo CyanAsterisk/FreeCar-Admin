@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Form, Input, Button, Message, InputNumber } from '@arco-design/web-react';
+import { Form, Input, Button, Notification, Message, InputNumber } from '@arco-design/web-react';
 const FormItem = Form.Item;
 import './index.less'
 import { IconCloseCircle } from '@arco-design/web-react/icon';
-import addUser, { addUserInfo } from '../../../../services/addUser'
+import updateUser, { updateUserInfo } from '../../../../services/user/updateUser'
 interface IUpadateUserProps {
     setShowUpdate: (display) => void,
-    showUpdate: string
+    showUpdate: string,
+    record: {
+        account_id:number
+    }
 }
 
 const UpdateUser = ((props: IUpadateUserProps) => {
     //通过父组件传参来决定是否展示 UpdateUser 页面
-    const { showUpdate, setShowUpdate } = props
+    const { showUpdate, setShowUpdate, record } = props
     const [form] = Form.useForm();
     const divRef = useRef(null)
 
@@ -20,20 +23,31 @@ const UpdateUser = ((props: IUpadateUserProps) => {
         setShowUpdate('none')
     }
     //提交请求
-    const handleClick = () => {
+    const handleClick = async () => {
         const data = form.getFieldsValue()
-        console.log(data);
-        /* const res = addUser(data as addUserInfo).then((res) => {
-            console.log(res);
-            return res
-        })
-        console.log(res); */
-        //*显示 已修改成功？
-        // code
+        data['account_id'] = record.account_id
+        const res = await updateUser(data as updateUserInfo);
+        console.log(res);
+
+        const status = res.data.base_resp.status_msg;
+        console.log(status);
+
+        if (status === 'success') {
+            Notification.success({
+                title: 'Success',
+                content: 'Update user successfully',
+            })
+        } else {
+            Notification.error({
+                title: 'Failed',
+                content: 'Fail to update user',
+            })
+        }
+        form.resetFields();
+
     }
     useEffect(() => {
         setShowUpdate(showUpdate)
-
 
     }, [showUpdate])
     return (
@@ -57,13 +71,6 @@ const UpdateUser = ((props: IUpadateUserProps) => {
                     </Button>
                 </div>
                 <FormItem
-                    label='Account Id'
-                    field='account_id'
-                    required
-                >
-                    <Input placeholder='please enter the account id' />
-                </FormItem>
-                <FormItem
                     label='Username'
                     field='username'
                     required
@@ -73,9 +80,10 @@ const UpdateUser = ((props: IUpadateUserProps) => {
                 <FormItem
                     label='Phone Number'
                     field='phone_number'
+                    extra='Please enter number'
                     required
                 >
-                    <Input placeholder='please enter the phone number' />
+                    <InputNumber placeholder='please enter the phone number' />
                 </FormItem>
                 {/* <FormItem
                     label='Avatar Blob Id'

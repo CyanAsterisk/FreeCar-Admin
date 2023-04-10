@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Form, Input, Button, Message, InputNumber } from '@arco-design/web-react';
+import { Form, Input, Button, Message, InputNumber, Notification } from '@arco-design/web-react';
 const FormItem = Form.Item;
 import './index.less'
 import { IconCloseCircle } from '@arco-design/web-react/icon';
-import addUser, { addUserInfo } from '../../../../services/addUser'
+import addUser, { addUserInfo } from '../../../../services/user/addUser'
 interface IAddUserProps {
     setShowState: (display) => void,
     showIntialization: string
@@ -20,14 +20,23 @@ const AddUser = ((props: IAddUserProps) => {
         setShowState('none')
     }
     //提交请求
-    const handleClick = () => {
+    const handleClick = async () => {
         const data = form.getFieldsValue()
         console.log(data);
-        const res = addUser(data as addUserInfo).then((res) => {
-            console.log(res);
-            return res
-        })
-        console.log(res);
+        const res = await addUser(data as addUserInfo)
+        
+        const status = res.data.base_resp.status_msg;
+        if (status === 'success') {
+            Notification.success({
+                title: 'Success',
+                content: 'Add a new user successfully',
+            })
+        } else {
+            Notification.error({
+                title: 'Failed',
+                content: 'Fail to add a new user',
+            })
+        }
         form.resetFields();
     }
     useEffect(() => {
@@ -56,9 +65,10 @@ const AddUser = ((props: IAddUserProps) => {
                 <FormItem
                     label='Account Id'
                     field='account_id'
+                    extra='Please enter number'
                     required
                 >
-                    <Input placeholder='please enter the account id' />
+                    <InputNumber placeholder='please enter the account id' />
                 </FormItem>
                 <FormItem
                     label='Username'
@@ -70,16 +80,18 @@ const AddUser = ((props: IAddUserProps) => {
                 <FormItem
                     label='Phone Number'
                     field='phone_number'
+                    extra='Please enter number'
                     required
                 >
-                    <Input placeholder='please enter the phone number' />
+                    <InputNumber placeholder='please enter the phone number' />
                 </FormItem>
                 <FormItem
                     label='Avatar Blob Id'
                     field='avatar_blod_id'
+                    extra='Please enter number'
                     required
                 >
-                    <Input placeholder='please enter the avatar blob id' />
+                    <InputNumber placeholder='please enter the avatar blob id' />
                 </FormItem>
                 <FormItem
                     label='Open Id'

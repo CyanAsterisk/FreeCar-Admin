@@ -19,7 +19,7 @@ import { getColumns } from './constants';
 import './style/index.less'
 const { Title } = Typography;
 import AddCar from './components/addCar/index.tsx';
-import { getSomeUserInfo } from '@/services/user';
+import { getSomeUserInfo } from '@/services/user/user';
 
 interface searchItem {
   id: unknown | undefined

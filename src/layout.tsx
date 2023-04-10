@@ -60,7 +60,7 @@ function getFlattenRoutes(routes: IRoute[]) {
           }
           res.push(route);
         } catch (e) {
-          //console.log(route.key);
+          // console.log(route.key);
           console.error(e);
         }
       }
@@ -86,7 +86,7 @@ function PageLayout() {
   const userInfo = global[0].userInfo;
   const userLoading = global[0].userLoading;
   const [routes, defaultRoute] = useRoute(userInfo?.permissions);
- //  console.log(routes);
+  // console.log(routes);
   const defaultSelectedKeys = [currentComponent || defaultRoute];
   const paths = (currentComponent || defaultRoute).split('/');
   const defaultOpenKeys = paths.slice(0, paths.length - 1);

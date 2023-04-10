@@ -3,7 +3,7 @@ import { Form, Input, Button, Message, InputNumber } from '@arco-design/web-reac
 const FormItem = Form.Item;
 import './index.less'
 import { IconCloseCircle } from '@arco-design/web-react/icon';
-import addUser, { addUserInfo } from '../../../../services/addUser'
+import addUser, { addUserInfo } from '../../../../services/user/addUser'
 interface IAddUserProps {
     setShowState: (display) => void,
     showIntialization: string

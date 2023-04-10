@@ -12,11 +12,13 @@ import React, { useEffect, useRef, useState } from 'react';
 //import axios from '../../utils/request';
 import axios from 'axios'
 import useStorage from '@/utils/useStorage';
+import { useNavigate } from 'react-router-dom';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
 import styles from './style/index.module.less';
 import login from '../../services/login'
 export default function LoginForm() {
+  const navigate = useNavigate();
   const formRef = useRef<FormInstance>();
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -39,7 +41,7 @@ export default function LoginForm() {
     // 跳转首页
     window.location.href = '/';
   }
-  function login(params) {
+  /* function login(params) {
     setErrorMessage('');
     setLoading(true);
     axios
@@ -55,9 +57,9 @@ export default function LoginForm() {
       .finally(() => {
         setLoading(false);
       });
-  }
+  } */
 
-  /* function login(params) {
+  function login(params) {
     const { userName, password } = params
     setErrorMessage('');
     setLoading(true);
@@ -70,23 +72,30 @@ export default function LoginForm() {
     //https://10.20.192.105:8080
     console.log(body);
 
-     axios({
-       headers: {
-       //  'Content-Type': 'multipart/form-data'
-       },
-       method: 'post',
-       url: 'http://43.138.9.224:9991/login/admin',
-       data: body,
- 
-     })
+    axios({
+      headers: {
+        //  'Content-Type': 'multipart/form-data'
+      },
+      method: 'post',
+      url: 'https://freecar.lanlance.cn/login/admin',
+      data: body,
+
+    })
       .then((res) => {
-        const { status, msg } = res.data;
-        if (status === 'ok') {
+        const status = res.data.base_resp.status_msg;
+        console.log(status);
+        //*保存登陆状态
+        
+        if (status === 'success') {
+          const token = res.data.token;
+          console.log(token);
+          
           afterLoginSuccess(params);
+          localStorage.setItem('token', token);
+          navigate('/');
         } else {
-          setErrorMessage(msg || t['login.form.login.errMsg']);
+          setErrorMessage(status || t['login.form.login.errMsg']);
         }
-        console.log(res);
 
       }).catch((err) => {
         console.log(err)
@@ -94,7 +103,7 @@ export default function LoginForm() {
       .finally(() => {
         setLoading(false);
       });
-  } */
+  }
 
   function onSubmitClick() {
     /* formRef.current.validate().then((values) => {

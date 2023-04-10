@@ -23,10 +23,6 @@ export type IRoute = AuthParams & {
 
 export const routes: IRoute[] = [
   {
-    name: 'Example',
-    key: 'example',
-  },
-  {
     name: 'User',
     key: 'user',
     icon: IconUser

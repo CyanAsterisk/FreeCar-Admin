@@ -4,7 +4,7 @@ import styles from './style/index.module.less';
 import IconText from './icons/text.svg';
 import IconHorizontalVideo from './icons/horizontal.svg';
 import IconVerticalVideo from './icons/vertical.svg';
-
+import deleteUser from '@/services/user/deleteUser';
 const { Text } = Typography;
 
 export const ContentType = ['图文', '横版短视频', '竖版短视频'];
@@ -24,11 +24,12 @@ const ContentIcon = [
 export function getColumns(
   t: unknown,
   setUpdateShow: () => void,
-  fetchData: () => void,
+  fetchAllData: () => void,
+  setRecord:(record)=>void
   //setData: Dispatch<SetStateAction<any[]>>
 ) {
-  const handleUpdate = () => {
-    console.log('update');
+  const handleUpdate = (record) => {
+    setRecord(record)
 
     setUpdateShow();
     return null
@@ -36,34 +37,36 @@ export function getColumns(
   /**
  * @删除用户
  */
-  const handleDelete = () => {
-    console.log('delete');
-    //发送网络请求删除数据
+  const handleDelete = async (record) => {
+    console.log(record);
+    const res = await deleteUser({ data: { account_id: record.account_id } })
+    console.log(res);
+
     //刷新页面
-    fetchData();
+    await fetchAllData();
     return null
   };
   return [
     {
       title: t['user.id'],
-      dataIndex: 'id',
-      render: (value) => <Text copyable>{value}</Text>,
+      dataIndex: 'account_id',
+      render: (value) => <Text key={`${value}`} copyable>{value}</Text>,
     },
     {
       title: t['user.name'],
-      dataIndex: 'name',
+      dataIndex: 'username',
     },
     {
       title: t['user.phone.number'],
-      dataIndex: 'phone',
+      dataIndex: 'phone_number',
     },
     {
       title: 'Avatar Blob ID',
-      dataIndex: 'avater',
-    }, 
+      dataIndex: 'avatar_blob_id',
+    },
     {
       title: 'Open ID',
-      dataIndex: 'openId',
+      dataIndex: 'open_id',
     },
     {
       title: t['searchTable.columns.operations'],
@@ -74,7 +77,7 @@ export function getColumns(
           <Button
             type="text"
             size="small"
-            onClick={handleUpdate}
+            onClick={()=>{handleUpdate(record)}}
           >
             {t['searchTable.columns.operations.update']}
           </Button>
@@ -86,7 +89,8 @@ export function getColumns(
               Message.info({
                 content: 'ok',
               });
-              handleDelete();
+              handleDelete(record);
+
             }}
             onCancel={() => {
               Message.error({

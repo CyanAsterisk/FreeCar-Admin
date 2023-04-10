@@ -4,7 +4,7 @@ const i18n = {
     'menu.list.searchTable': 'Search Table',
     'searchTable.form.search': 'Search',
     'searchTable.form.reset': 'Reset',
-    'searchTable.columns.id': 'Account ID',
+    'searchTable.columns.id': 'Collection ID',
     'searchTable.columns.name': 'Collection Name',
     'searchTable.columns.contentType': 'Content genre',
     'searchTable.columns.filterType': 'Filter method',

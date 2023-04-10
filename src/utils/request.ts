@@ -8,45 +8,27 @@ import Axios from 'axios'
 //https://freecar.lanlance.cn
 //https://10.20.192.105:8080
 const axios = Axios.create({
-    baseURL: 'http://43.138.9.224:9991',
-    headers: {
-        ContentType: 'application/x-www-form-urlencoded'
-    },
+    baseURL: 'https://freecar.lanlance.cn',
+    
     timeout: 5000,
 });
-axios.defaults.headers.get['Accept'] = 'application/x-www-form-urlencoded'
 
 //*发送请求之前的准备
 axios.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {
-
-        // config.headers.Token = `Bearer ${token}`;
+        config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
 })
 
+//*接收到请求后的操作
 axios.interceptors.response.use(
     (res) => {
-        const data = res.data;
+        return res;
     },
     (err) => {
         return Promise.reject(err)
     })
-/*axios.interceptors.request.use(function (config) {
-  // Do something before request is sent
-  return config;
-}, function (error) {
-  // Do something with request error
-  return Promise.reject(error);
-});
-
-axios.interceptors.response.use(function (response) {
-  // Do something with response data
-  return response;
-}, function (error) {
-  // Do something with response error
-  return Promise.reject(error);
-}); */
 
 export default axios
