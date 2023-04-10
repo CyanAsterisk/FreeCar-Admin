@@ -1,21 +1,15 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { Button, Typography, Badge, Popconfirm, Message } from '@arco-design/web-react';
-import styles from './style/index.module.less';
 import IconText from './icons/text.svg';
 import IconHorizontalVideo from './icons/horizontal.svg';
 import IconVerticalVideo from './icons/vertical.svg';
-
+import deleteCar from '@/services/car/deleteCar';
 const { Text } = Typography;
 
 export const ContentType = ['图文', '横版短视频', '竖版短视频'];
 export const FilterType = ['规则筛选', '人工'];
 export const Status = ['未上线', '已上线'];
 
-const ContentIcon = [
-  <IconText key={0} />,
-  <IconHorizontalVideo key={1} />,
-  <IconVerticalVideo key={2} />,
-];
 
 /**
 * @编辑用户
@@ -23,61 +17,65 @@ const ContentIcon = [
 
 export function getColumns(
   t: unknown,
-  setUpdateShow: () => void,
-  fetchData: () => void,
+  fetchAllData: () => void,
   //setData: Dispatch<SetStateAction<any[]>>
 ) {
-  const handleUpdate = () => {
-    console.log('update');
-
-    setUpdateShow();
-    return null
-  };
   /**
  * @删除用户
  */
-  const handleDelete = () => {
-    console.log('delete');
-    //发送网络请求删除数据
+  const handleDelete = async (record) => {
+    const res = await deleteCar({ data: { id: record.id } })
+    console.log(res);
+
     //刷新页面
-    fetchData();
+    await fetchAllData();
     return null
   };
   return [
     {
-      title: t['user.id'],
+      title: 'ID',
       dataIndex: 'id',
-      render: (value) => <Text copyable>{value}</Text>,
+      ellipsis:true,
+      render: (value) => <Text key={`${value}`} copyable>{value}</Text>,
     },
     {
-      title: t['user.name'],
-      dataIndex: 'name',
+      title: 'Status',
+      dataIndex: 'car.status',
     },
     {
-      title: t['user.phone.number'],
-      dataIndex: 'phone',
+      title: 'DriverID',
+      dataIndex: 'car.driver.id',
     },
     {
-      title: 'Avatar Blob ID',
-      dataIndex: 'avater',
-    }, 
+      title: 'DriverAvatar',
+      dataIndex: 'car.driver.avatar_url',
+    },
     {
-      title: 'Open ID',
-      dataIndex: 'openId',
+      title: 'Latitude',
+      dataIndex: 'car.position.latitude',
+    },
+    {
+      title: 'Longitude',
+      dataIndex: 'car.position.longitude',
+    },
+    {
+      title: 'TripID',
+      dataIndex: 'car.trip_id',
+    },
+    {
+      title: 'Power',
+      dataIndex: 'car.power',
+    },
+    {
+      title: 'PlateNumer',
+      dataIndex: 'car.plate_num',
     },
     {
       title: t['searchTable.columns.operations'],
       dataIndex: 'operations',
-      headerCellStyle: { paddingLeft: '2vw' },
+      //headerCellStyle: { paddingLeft: '2vw' },
       render: (_, record) => (
         <>
-          <Button
-            type="text"
-            size="small"
-            onClick={handleUpdate}
-          >
-            {t['searchTable.columns.operations.update']}
-          </Button>
           <Popconfirm
             focusLock
             title='Confirm'
@@ -86,7 +84,8 @@ export function getColumns(
               Message.info({
                 content: 'ok',
               });
-              handleDelete();
+              handleDelete(record);
+
             }}
             onCancel={() => {
               Message.error({
@@ -109,6 +108,3 @@ export function getColumns(
     },
   ];
 }
-
-
-export default () => ContentIcon;

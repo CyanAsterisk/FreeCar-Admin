@@ -43,10 +43,6 @@ function SearchTable() {
   //console.log(columns);
 
   const [primaryData, setprimaryData] = useState([]);
-  const [someData, setSomeData] = useState([]);
-  const [allData, setAllData] = useState([]);
-  const [primarySomeData, setPrimarySomeData] = useState([]);
-  const [primaryAllData, setPrimaryAllData] = useState([]);
   const [record, setRecord] = useState(null)
   const [data, setData] = useState([])
 

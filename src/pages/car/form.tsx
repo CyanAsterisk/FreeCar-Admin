@@ -55,26 +55,19 @@ function SearchForm(props: {
       >
         <Row gutter={24}>
           <Col span={colSpan}>
-            <Form.Item label={t['searchTable.columns.id']} field="id">
-              <Input placeholder={t['searchForm.id.placeholder']} allowClear />
+            <Form.Item label={'ID'} field="id">
+              <Input placeholder={'Please enter the ID'} allowClear />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item label={t['searchTable.columns.name']} field="name" >
+            <Form.Item label={'PlateNumber'} field="plate_num" >
               <Input
                 allowClear
-                placeholder={t['searchForm.name.placeholder']}
+                placeholder={'Please enter the plate number'}
               />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
-            <Form.Item label={t['searchTable.columns.phone']} field="phone">
-              <Input
-                allowClear
-                placeholder={t['searchForm.phone.placeholder']}
-              />
-            </Form.Item>
-          </Col>
+
         </Row>
       </Form>
       <div className={styles['right-button']}>
@@ -84,9 +77,6 @@ function SearchForm(props: {
         <Button icon={<IconRefresh />} onClick={handleReset}>
           {t['searchTable.form.reset']}
         </Button>
-        {/* <Button type="primary" icon={<IconUserAdd />} onClick={handleDelete}>
-            {t['searchTable.operations.add']}
-          </Button> */}
       </div>
     </div>
   );

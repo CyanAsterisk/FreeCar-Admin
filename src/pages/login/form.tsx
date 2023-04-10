@@ -2,7 +2,6 @@ import {
   Form,
   Input,
   Checkbox,
-  Link,
   Button,
   Space,
 } from '@arco-design/web-react';
@@ -16,7 +15,6 @@ import { useNavigate } from 'react-router-dom';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
 import styles from './style/index.module.less';
-import login from '../../services/login'
 export default function LoginForm() {
   const navigate = useNavigate();
   const formRef = useRef<FormInstance>();

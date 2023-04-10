@@ -2,14 +2,11 @@ import React, { useState, useEffect, useMemo, useRef, ReactChild } from 'react';
 import {
   Table,
   Card,
-  PaginationProps,
   Button,
   Space,
   Typography,
 } from '@arco-design/web-react';
-import PermissionWrapper from '@/components/PermissionWrapper';
 import { IconDownload, IconPlus, IconUserAdd } from '@arco-design/web-react/icon';
-import axios from 'axios';
 import useLocale from '@/utils/useLocale';
 import SearchForm from './form';
 import locale from './locale';
@@ -18,11 +15,11 @@ import './mock';
 import { getColumns } from './constants';
 import './style/index.less'
 const { Title } = Typography;
+import { getSomeCarInfo, getAllCarInfo } from '@/services/car/car';
 
 interface searchItem {
   id: unknown | undefined
-  name: string | undefined,
-  phone: number | undefined
+  plate_num: string | undefined,
 }
 /**
  * 
@@ -32,67 +29,82 @@ function SearchTable() {
   const t = useLocale(locale);
 
 
-  const [showUpdate, setShowUpdate] = useState('none');
-  const handleUpdate = () => {
-    setShowUpdate('block');
-  }
   //console.log(columns);
 
   const [primaryData, setprimaryData] = useState([]);
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [formParams, setFormParams] = useState({});
+  const [data, setData] = useState([])
 
-  const columns = useMemo(() => getColumns(t, handleUpdate, fetchData/* tableCallback */), [t]);
+  const [loading, setLoading] = useState(true);
+
+  const [formParams, setFormParams] = useState({});
+  const [showIntialization, setShowstate] = useState('none');
+  const fetchSomeData = async () => {
+    setLoading(true)
+    const res = await getSomeCarInfo()
+    const newArr = []
+    res.data.cars.map((item) => {
+      newArr.push(
+        Object.assign({}, item, { 'key': `${item.id}` })
+      )
+    })
+
+    setData(newArr)
+    setprimaryData(newArr)
+    setLoading(false)
+  }
+
+  const fetchRestData = async () => {
+    const res = await getAllCarInfo();
+    console.log(res);
+    const restArr = []
+    res.data.cars.map((item) => {
+      restArr.push(
+        Object.assign({}, item, { 'key': `${item.id}` })
+      )
+    })
+
+    setData(restArr)
+    setprimaryData(Array.from(new Set(primaryData.concat(restArr))));
+
+  }
+  const fetchAllData = async () => {
+    await fetchSomeData();
+    await fetchRestData()
+
+  }
+
+  const columns = useMemo(() => getColumns(t, fetchAllData), [t]);
 
   useEffect(() => {
+    fetchAllData()
+  }, [showIntialization, JSON.stringify(formParams)]);
 
-    fetchData();
-
-  }, [JSON.stringify(formParams)]);
-
-
-  function fetchData() {
-    //const { current, pageSize } = pagination;
-
-    setLoading(true);
-    axios
-      .get('/api/list', {
-        params: {
-          //page: current,
-          //pageSize,
-        },
-      })
-      .then((res) => {
-        // console.log(res.data.list); //一系列数据
-        // console.log(res.data.total);
-        console.log(formParams);
-        setprimaryData(res.data.list);
-        setData(res.data.list);
-        setLoading(false);
-      });
+  const addUser = () => { //添加用户
+    setShowstate('block')
   }
+
+
 
   const searchData = (target: searchItem) => {
     console.log(target);
-    const { id, name, phone } = target;
-    if (id === undefined && name === undefined && phone === undefined) {
+    const { id, plate_num } = target;
+    if (id === undefined && plate_num === undefined) {
       return false
     }
-    let find = (id === undefined) ? phone : id;
-    find = (find === undefined) ? name : find;
-
+    const find = (id === undefined) ? plate_num : id;
     primaryData.map((item) => {
-      if (item.id === find || item.name === find /* || item.phone === find */) {
+
+      if (item.id === find || item.car.plate_num === find) {
         setData([item])
+        console.log(item);
+
       }
     })
 
   }
   const resetData = () => {
-    console.log(primaryData);
+    setData(primaryData)
 
-    setData(primaryData);
   }
 
   return (
@@ -104,23 +116,26 @@ function SearchTable() {
           { resource: 'menu.list.searchTable', actions: ['write'] },
         ]}
       > */}
+      <div className={styles['button-group']}>
+        <Space>
+          {/* <Button type="primary" icon={<IconPlus />}>
+              {t['searchTable.operations.add']}
+            </Button>
+            <Button>{t['searchTable.operations.upload']}</Button> */}
+        </Space>
+        <Space>
+          <Button type="primary" icon={<IconPlus />} onClick={addUser}>
+            {t['searchTable.operations.add']}
+          </Button>
+        </Space>
+      </div>
       {/* </PermissionWrapper> */}
       <Table
-        rowKey="id"
+        rowKey="key"
         loading={loading}
         //onChange={onChangeTable}
         columns={columns}
-        data={data}
-        pagination={false}
-      />
-      <Table
-        className={'allData'}
-        rowKey="id"
-        loading={loading}
-        //onChange={onChangeTable}
-        indentSize={15}
-        //showHeader={false}
-        columns={columns}
+        // data={someData}
         data={data}
         pagination={false}
       />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Form, Input, Button, Message, InputNumber, Notification } from '@arco-design/web-react';
 const FormItem = Form.Item;
 import './index.less'
@@ -24,7 +24,7 @@ const AddUser = ((props: IAddUserProps) => {
         const data = form.getFieldsValue()
         console.log(data);
         const res = await addUser(data as addUserInfo)
-        
+
         const status = res.data.base_resp.status_msg;
         if (status === 'success') {
             Notification.success({

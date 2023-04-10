@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Form, Input, Button, Message, InputNumber } from '@arco-design/web-react';
+import React, { useEffect, useRef } from 'react'
+import { Form, Input, Button, Message, InputNumber, Notification } from '@arco-design/web-react';
 const FormItem = Form.Item;
 import './index.less'
 import { IconCloseCircle } from '@arco-design/web-react/icon';
-import addUser, { addUserInfo } from '../../../../services/user/addUser'
+import addCar, { addCarInfo } from '../../../../services/car/addCar'
 interface IAddUserProps {
     setShowState: (display) => void,
     showIntialization: string
@@ -20,33 +20,37 @@ const AddUser = ((props: IAddUserProps) => {
         setShowState('none')
     }
     //提交请求
-    const handleClick = () => {
+    const handleClick = async () => {
         const data = form.getFieldsValue()
-        console.log(data);
-        const res = addUser(data as addUserInfo).then((res) => {
-            console.log(res);
-            return res
-        })
-        console.log(res);
+        const res = await addCar(data as addCarInfo)
+
+        const status = res.data.base_resp.status_msg;
+        if (status === 'success') {
+            Notification.success({
+                title: 'Success',
+                content: 'Add a new car successfully',
+            })
+        } else {
+            Notification.error({
+                title: 'Failed',
+                content: 'Fail to add a new car',
+            })
+        }
         form.resetFields();
     }
     useEffect(() => {
         setShowState(showIntialization)
     }, [showIntialization])
     return (
-        <div className='addUserBox' ref={divRef} style={{ display: `${showIntialization}` }}>
+        <div className='addCarBox' ref={divRef} style={{ display: `${showIntialization}` }}>
 
             <Form
-                className={'addUserForm'}
+                className={'addCarForm'}
                 form={form}
                 autoComplete='off'
                 layout={'vertical'}
                 validateMessages={{
                     required: (_, { label }) => `必须填写 ${label}`,
-                    string: {
-                        length: `字符数必须是 #{length}`,
-                        match: `不匹配正则 #{pattern}`,
-                    }
                 }}
             >
                 <div className='closeForm'>
@@ -54,39 +58,11 @@ const AddUser = ((props: IAddUserProps) => {
                     </Button>
                 </div>
                 <FormItem
-                    label='Account Id'
-                    field='account_id'
+                    label='PlateNumber'
+                    field='plate_num'
                     required
                 >
-                    <Input placeholder='please enter the account id' />
-                </FormItem>
-                <FormItem
-                    label='Username'
-                    field='username'
-                    required
-                >
-                    <Input placeholder='please enter the username' />
-                </FormItem>
-                <FormItem
-                    label='Phone Number'
-                    field='phone_number'
-                    required
-                >
-                    <Input placeholder='please enter the phone number' />
-                </FormItem>
-                <FormItem
-                    label='Avatar Blob Id'
-                    field='avatar_blod_id'
-                    required
-                >
-                    <Input placeholder='please enter the avatar blob id' />
-                </FormItem>
-                <FormItem
-                    label='Open Id'
-                    field='open_id'
-                    required
-                >
-                    <Input placeholder='please enter the open id' />
+                    <Input placeholder='please enter the plate number' />
                 </FormItem>
 
                 <FormItem wrapperCol={{ offset: 5 }}>

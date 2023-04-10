@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import dayjs from 'dayjs';
 import {
-    Form,
-    Input,
-    Select,
-    DatePicker,
-    Button,
-    Grid,
+  Form,
+  Input,
+  Select,
+  DatePicker,
+  Button,
+  Grid,
 } from '@arco-design/web-react';
 import { GlobalContext } from '@/context';
 import locale from './locale';
@@ -19,77 +19,67 @@ const { Row, Col } = Grid;
 const { useForm } = Form;
 
 function SearchForm(props: {
-    onSearch: (values: Record<string, any>) => void;
-    resetData: () => void;
+  onSearch: (values: Record<string, any>) => void;
+  resetData: () => void;
 }) {
-    const { lang } = useContext(GlobalContext);
+  const { lang } = useContext(GlobalContext);
 
-    const t = useLocale(locale);
-    const [form] = useForm();
+  const t = useLocale(locale);
+  const [form] = useForm();
 
-    const handleSubmit = () => {
-        const values = form.getFieldsValue();
-        console.log(values);
+  const handleSubmit = () => {
+    const values = form.getFieldsValue();
+    console.log(values);
 
-        props.onSearch(values); //通过这个把搜索传给index里的搜索函数
-    };
-    /**
-     * 重置数据
-     */
-    const handleReset = () => {
-        props.resetData();
-    }
+    props.onSearch(values); //通过这个把搜索传给index里的搜索函数
+  };
+  /**
+   * 重置数据
+   */
+  const handleReset = () => {
+    props.resetData();
+  }
 
 
 
-    const colSpan = lang === 'zh-CN' ? 8 : 12;
+  const colSpan = lang === 'zh-CN' ? 8 : 12;
 
-    return (
-        <div className={styles['search-form-wrapper']}>
-            <Form
-                form={form}
-                className={styles['search-form']}
-                labelAlign="left"
-                labelCol={{ span: 5 }}
-                wrapperCol={{ span: 19 }}
-            >
-                <Row gutter={24}>
-                    <Col span={colSpan}>
-                        <Form.Item label={t['searchTable.columns.id']} field="id">
-                            <Input placeholder={t['searchForm.id.placeholder']} allowClear />
-                        </Form.Item>
-                    </Col>
-                    <Col span={colSpan}>
-                        <Form.Item label={t['searchTable.columns.name']} field="name" >
-                            <Input
-                                allowClear
-                                placeholder={t['searchForm.name.placeholder']}
-                            />
-                        </Form.Item>
-                    </Col>
-                    <Col span={colSpan}>
-                        <Form.Item label={t['searchTable.columns.phone']} field="phone">
-                            <Input
-                                allowClear
-                                placeholder={t['searchForm.phone.placeholder']}
-                            />
-                        </Form.Item>
-                    </Col>
-                </Row>
-            </Form>
-            <div className={styles['right-button']}>
-                <Button type="primary" icon={<IconSearch />} onClick={handleSubmit}>
-                    {t['searchTable.form.search']}
-                </Button>
-                <Button icon={<IconRefresh />} onClick={handleReset}>
-                    {t['searchTable.form.reset']}
-                </Button>
-                {/* <Button type="primary" icon={<IconUserAdd />} onClick={handleDelete}>
-            {t['searchTable.operations.add']}
-          </Button> */}
-            </div>
-        </div>
-    );
+  return (
+    <div className={styles['search-form-wrapper']}>
+      <Form
+        form={form}
+        className={styles['search-form']}
+        labelAlign="left"
+        labelCol={{ span: 5 }}
+        wrapperCol={{ span: 19 }}
+      >
+        <Row gutter={24}>
+          <Col span={colSpan}>
+            <Form.Item label={'ID'} field="id">
+              <Input placeholder={'Please enter the ID'} allowClear />
+            </Form.Item>
+          </Col>
+          <Col span={colSpan}>
+            <Form.Item label={'PlateNumber'} field="plate_num" >
+              <Input
+                allowClear
+                placeholder={'Please enter the plate number'}
+              />
+            </Form.Item>
+          </Col>
+
+        </Row>
+      </Form>
+      <div className={styles['right-button']}>
+        <Button type="primary" icon={<IconSearch />} onClick={handleSubmit}>
+          {t['searchTable.form.search']}
+        </Button>
+        <Button icon={<IconRefresh />} onClick={handleReset}>
+          {t['searchTable.form.reset']}
+        </Button>
+      </div>
+    </div>
+  );
 }
 
 export default SearchForm;

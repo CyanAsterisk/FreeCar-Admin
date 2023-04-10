@@ -6,9 +6,6 @@ interface IUserInfo {
     avatar_blob_id: number,
     open_id: number
 }
-interface userData {
-    userData: IUserInfo[]
-}
 export const getSomeUserInfo = async () => {
     const data = await axios.get(
         `/admin/user/some`,
