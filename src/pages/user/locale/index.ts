@@ -34,7 +34,7 @@ const i18n = {
     'user.id': '用户编号',
     'user.name': '用户名称',
     "user.phone.number": '手机号码',
-    'searchTable.columns.phone': '手机号码',
+    'searchTable.columns.phone': '手机号',
     'searchForm.phone.placeholder': '请输入手机号码',
 
     'menu.list': '列表页',

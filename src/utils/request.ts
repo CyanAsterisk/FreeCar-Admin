@@ -25,7 +25,6 @@ axios.interceptors.request.use((config) => {
 //*接收到请求后的操作
 axios.interceptors.response.use(
     (res) => {
-      console.log(res);
       
         return res;
     },

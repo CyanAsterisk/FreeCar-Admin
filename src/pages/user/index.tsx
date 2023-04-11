@@ -66,7 +66,6 @@ function SearchTable() {
   }
   const fetchRestData = async () => {
     const res = await getAllUserInfo();
-    console.log(res);
     const restArr = []
     res.data.users.map((item) => {
       restArr.push(

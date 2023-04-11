@@ -26,11 +26,11 @@ const UpdateUser = ((props: IUpadateUserProps) => {
     const handleClick = async () => {
         const data = form.getFieldsValue()
         data['account_id'] = record.account_id
+        data['phone_number'] = JSON.stringify(data['phone_number'])
+
         const res = await updateUser(data as updateUserInfo);
-        console.log(res);
 
         const status = res.data.base_resp.status_msg;
-        console.log(status);
 
         if (status === 'success') {
             Notification.success({
@@ -85,20 +85,6 @@ const UpdateUser = ((props: IUpadateUserProps) => {
                 >
                     <InputNumber placeholder='please enter the phone number' />
                 </FormItem>
-                {/* <FormItem
-                    label='Avatar Blob Id'
-                    field='avatar_blod_id'
-                    required
-                >
-                    <Input placeholder='please enter the avatar blob id' />
-                </FormItem>
-                <FormItem
-                    label='Open Id'
-                    field='open_id'
-                    required
-                >
-                    <Input placeholder='please enter the open id' />
-                </FormItem> */}
 
                 <FormItem wrapperCol={{ offset: 5 }}>
                     <Button type='primary' htmlType='submit' onClick={handleClick}>

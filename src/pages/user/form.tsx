@@ -67,6 +67,8 @@ function SearchForm(props: {
               />
             </Form.Item>
           </Col>
+        </Row>
+        <Row>
           <Col span={colSpan}>
             <Form.Item label={'Phone Number'} field="phone">
               <Input
