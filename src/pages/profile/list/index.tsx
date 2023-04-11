@@ -10,12 +10,10 @@ import { IconDownload, IconPlus, IconUserAdd } from '@arco-design/web-react/icon
 import useLocale from '@/utils/useLocale';
 import SearchForm from './form';
 import locale from './locale';
-import styles from './style/index.module.less';
-import './mock';
 import { getColumns } from './constants';
 import './style/index.less'
 const { Title } = Typography;
-import { getSomeCarInfo, getAllCarInfo } from '@/services/car/car';
+import { getSomeProfileInfo, getAllProfileInfo } from '@/services/profile/profile';
 
 interface searchItem {
   id: unknown | undefined
@@ -32,7 +30,7 @@ function SearchTable() {
   //console.log(columns);
 
   const [primaryData, setprimaryData] = useState([]);
-  const [data, setData] = useState([])
+  const [data, setData] = useState(null)
 
   const [loading, setLoading] = useState(true);
 
@@ -40,11 +38,14 @@ function SearchTable() {
   const [showIntialization, setShowstate] = useState('none');
   const fetchSomeData = async () => {
     setLoading(true)
-    const res = await getSomeCarInfo()
+    const res = await getSomeProfileInfo()
+    console.log(res);
+    
     const newArr = []
-    res.data.cars.map((item) => {
+    res.data.profile.map((item) => {
+      
       newArr.push(
-        Object.assign({}, item, { 'key': `${item.id}` })
+        Object.assign({}, item, { 'key': `{${item.account_id}+${item.profile.identity.name}}` })
       )
     })
 
@@ -54,16 +55,16 @@ function SearchTable() {
   }
 
   const fetchRestData = async () => {
-    const res = await getAllCarInfo();
+    const res = await getAllProfileInfo();
     console.log(res);
     const restArr = []
-    res.data.cars.map((item) => {
+    res.data.profile.map((item) => {
       restArr.push(
-        Object.assign({}, item, { 'key': `${item.id}` })
+        Object.assign({}, item, { 'key': `{${item.account_id}+${item.profile.identity.name}}` })
       )
     })
 
-    setData(restArr)
+    setData(Array.from(new Set(data.concat(restArr))))
     setprimaryData(Array.from(new Set(primaryData.concat(restArr))));
 
   }
@@ -111,25 +112,6 @@ function SearchTable() {
     <Card>
       <Title heading={6}>{t['menu.list.searchTable']}</Title>
       <SearchForm onSearch={searchData} resetData={resetData} />
-      {/* <PermissionWrapper
-        requiredPermissions={[
-          { resource: 'menu.list.searchTable', actions: ['write'] },
-        ]}
-      > */}
-      <div className={styles['button-group']}>
-        <Space>
-          {/* <Button type="primary" icon={<IconPlus />}>
-              {t['searchTable.operations.add']}
-            </Button>
-            <Button>{t['searchTable.operations.upload']}</Button> */}
-        </Space>
-        <Space>
-          <Button type="primary" icon={<IconPlus />} onClick={addUser}>
-            {t['searchTable.operations.add']}
-          </Button>
-        </Space>
-      </div>
-      {/* </PermissionWrapper> */}
       <Table
         rowKey="key"
         loading={loading}

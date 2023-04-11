@@ -29,6 +29,9 @@ const i18n = {
     'searchTable.columns.operations.delete': 'delete',
     'searchTable.columns.phone': 'phone',
     'searchForm.phone.placeholder': 'please input phone number',
+    'searchTable.columns.operations.accept': 'Accept',
+    'searchTable.columns.operations.reject': 'Reject',
+
   },
   'zh-CN': {
     'user.id': '用户编号',
@@ -36,6 +39,9 @@ const i18n = {
     "user.phone.number": '手机号码',
     'searchTable.columns.phone': '手机号码',
     'searchForm.phone.placeholder': '请输入手机号码',
+    'searchTable.columns.operations.accept': '通过',
+    'searchTable.columns.operations.reject': '拒绝',
+
 
     'menu.list': '列表页',
     'menu.list.searchTable': '查询表格',

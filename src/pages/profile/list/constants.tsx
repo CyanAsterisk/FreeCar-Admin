@@ -6,9 +6,7 @@ import IconVerticalVideo from './icons/vertical.svg';
 import deleteCar from '@/services/car/deleteCar';
 const { Text } = Typography;
 
-export const ContentType = ['图文', '横版短视频', '竖版短视频'];
-export const FilterType = ['规则筛选', '人工'];
-export const Status = ['未上线', '已上线'];
+export const Status = ['未提交','审核中','审核成功','认证失败' ];
 
 
 /**
@@ -33,42 +31,46 @@ export function getColumns(
   };
   return [
     {
-      title: 'ID',
-      dataIndex: 'id',
-      ellipsis:true,
+      title: 'AccountID',
+      dataIndex: 'account_id',
       render: (value) => <Text key={`${value}`} copyable>{value}</Text>,
     },
     {
-      title: 'Status',
-      dataIndex: 'car.status',
+      title: 'Photo',
+      dataIndex: 'photo_blob_id',
     },
     {
-      title: 'DriverID',
-      dataIndex: 'car.driver.id',
+      title: 'LicNumber',
+      dataIndex: 'profile.identity.lic_number',
     },
     {
-      title: 'DriverAvatar',
-      dataIndex: 'car.driver.avatar_url',
+      title: 'Name',
+      dataIndex: 'profile.identity.name',
     },
     {
-      title: 'Latitude',
-      dataIndex: 'car.position.latitude',
+      title: 'Gender',
+      dataIndex: 'profile.identity.gender',
     },
     {
-      title: 'Longitude',
-      dataIndex: 'car.position.longitude',
+      title: 'Birth',
+      dataIndex: 'profile.identity.birth_date_millis',
     },
     {
-      title: 'TripID',
-      dataIndex: 'car.trip_id',
-    },
-    {
-      title: 'Power',
-      dataIndex: 'car.power',
-    },
-    {
-      title: 'PlateNumer',
-      dataIndex: 'car.plate_num',
+      title: 'IdentityStatus',
+      dataIndex: 'profile.identity_status',
+      render: (x) => {
+        
+        if (x === 3) {
+          return <Badge status="error" text={Status[x]}></Badge>;
+        } else if(x===2){
+          return <Badge status="success" text={Status[x]}></Badge>;
+        } else if(x===1){
+          return <Badge status="warning" text={Status[x]}></Badge>;
+
+        } 
+        return <Badge status="default" text={Status[x]}></Badge>;
+
+      },
     },
     {
       title: t['searchTable.columns.operations'],

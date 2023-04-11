@@ -2,28 +2,25 @@ import React, { useState, useEffect, useMemo, useRef, ReactChild } from 'react';
 import {
   Table,
   Card,
-  PaginationProps,
   Button,
   Space,
   Typography,
 } from '@arco-design/web-react';
-import PermissionWrapper from '@/components/PermissionWrapper';
 import { IconDownload, IconPlus, IconUserAdd } from '@arco-design/web-react/icon';
-import axios from 'axios';
 import useLocale from '@/utils/useLocale';
 import SearchForm from './form';
 import locale from './locale';
-import styles from './style/index.module.less';
-import './mock';
 import { getColumns } from './constants';
 import './style/index.less'
 const { Title } = Typography;
+import { getPendingProfileInfo} from '@/services/profile/profile';
 
 interface searchItem {
   id: unknown | undefined
-  name: string | undefined,
-  phone: number | undefined
+  plate_num: string | undefined,
 }
+
+
 /**
  * 
  * @搜索栏
@@ -32,94 +29,70 @@ function SearchTable() {
   const t = useLocale(locale);
 
 
-  const [showUpdate, setShowUpdate] = useState('none');
-  const handleUpdate = () => {
-    setShowUpdate('block');
-  }
   //console.log(columns);
 
   const [primaryData, setprimaryData] = useState([]);
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [formParams, setFormParams] = useState({});
+  const [data, setData] = useState(null)
 
-  const columns = useMemo(() => getColumns(t, handleUpdate, fetchData/* tableCallback */), [t]);
+  const [loading, setLoading] = useState(true);
+
+  const [formParams, setFormParams] = useState({});
+  const fetchPendingData = async () => {
+    setLoading(true)
+    const res = await getPendingProfileInfo()
+    console.log(res);
+    
+    const newArr = []
+    res.data.profile.map((item) => {
+      
+      newArr.push(
+        Object.assign({}, item, { 'key': `{${item.account_id}+${item.profile.identity.name}}` })
+      )
+    })
+
+    setData(newArr)
+    setprimaryData(newArr)
+    setLoading(false)
+  }
+
+  const fetchData = async () => {
+    await fetchPendingData();
+  }
+
+  const columns = useMemo(() => getColumns(t, fetchData), [t]);
 
   useEffect(() => {
+    fetchData()
+  }, [ JSON.stringify(formParams)]);
 
-    fetchData();
-
-  }, [JSON.stringify(formParams)]);
-
-
-  function fetchData() {
-    //const { current, pageSize } = pagination;
-
-    setLoading(true);
-    axios
-      .get('/api/list', {
-        params: {
-          //page: current,
-          //pageSize,
-        },
-      })
-      .then((res) => {
-        // console.log(res.data.list); //一系列数据
-        // console.log(res.data.total);
-        console.log(formParams);
-        setprimaryData(res.data.list);
-        setData(res.data.list);
-        setLoading(false);
-      });
-  }
 
   const searchData = (target: searchItem) => {
     console.log(target);
-    const { id, name, phone } = target;
-    if (id === undefined && name === undefined && phone === undefined) {
+    const { id, plate_num } = target;
+    if (id === undefined && plate_num === undefined) {
       return false
     }
-    let find = (id === undefined) ? phone : id;
-    find = (find === undefined) ? name : find;
-
+    const find = (id === undefined) ? plate_num : id;
     primaryData.map((item) => {
-      if (item.id === find || item.name === find /* || item.phone === find */) {
+
+      if (item.id === find || item.car.plate_num === find) {
         setData([item])
+        console.log(item);
+
       }
     })
 
   }
   const resetData = () => {
-    console.log(primaryData);
-
-    setData(primaryData);
+    setData(primaryData)
   }
-
   return (
     <Card>
       <Title heading={6}>{t['menu.list.searchTable']}</Title>
       <SearchForm onSearch={searchData} resetData={resetData} />
-      {/* <PermissionWrapper
-        requiredPermissions={[
-          { resource: 'menu.list.searchTable', actions: ['write'] },
-        ]}
-      > */}
-      {/* </PermissionWrapper> */}
       <Table
-        rowKey="id"
+        rowKey="key"
         loading={loading}
-        //onChange={onChangeTable}
-        columns={columns}
-        data={data}
-        pagination={false}
-      />
-      <Table
-        className={'allData'}
-        rowKey="id"
-        loading={loading}
-        //onChange={onChangeTable}
-        indentSize={15}
-        //showHeader={false}
         columns={columns}
         data={data}
         pagination={false}
