@@ -13,7 +13,7 @@ import locale from './locale';
 import { getColumns } from './constants';
 import './style/index.less'
 const { Title } = Typography;
-import { getSomeProfileInfo, getAllProfileInfo } from '@/services/profile/profile';
+import { getSomeTripInfo, getAllTripInfo } from '@/services/trip/trip';
 
 interface searchItem {
   id: unknown | undefined
@@ -38,14 +38,14 @@ function SearchTable() {
   const [showIntialization, setShowstate] = useState('none');
   const fetchSomeData = async () => {
     setLoading(true)
-    const res = await getSomeProfileInfo()
+    const res = await getSomeTripInfo()
     console.log(res);
     
     const newArr = []
-    res.data.profile.map((item) => {
+    res.data.trips.map((item) => {
       
       newArr.push(
-        Object.assign({}, item, { 'key': `{${item.account_id}+${item.profile.identity.name}}` })
+        Object.assign({}, item, { 'key': `${item.id}` })
       )
     })
 
@@ -55,16 +55,16 @@ function SearchTable() {
   }
 
   const fetchRestData = async () => {
-    const res = await getAllProfileInfo();
+    const res = await getAllTripInfo();
     console.log(res);
     const restArr = []
-    res.data.profile.map((item) => {
+    res.data.trips.map((item) => {
       restArr.push(
-        Object.assign({}, item, { 'key': `{${item.account_id}+${item.profile.identity.name}}` })
+        Object.assign({}, item, {  'key': `${item.id}`  })
       )
     })
 
-    setData(Array.from(new Set(data.concat(restArr))))
+    setData(restArr)
     setprimaryData(Array.from(new Set(primaryData.concat(restArr))));
 
   }
@@ -80,11 +80,6 @@ function SearchTable() {
     fetchAllData()
   }, [showIntialization, JSON.stringify(formParams)]);
 
-  const addUser = () => { //添加用户
-    setShowstate('block')
-  }
-
-
 
   const searchData = (target: searchItem) => {
     console.log(target);
@@ -97,8 +92,6 @@ function SearchTable() {
 
       if (item.id === find || item.car.plate_num === find) {
         setData([item])
-        console.log(item);
-
       }
     })
 

@@ -1,12 +1,25 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { Button, Typography, Badge, Popconfirm, Message } from '@arco-design/web-react';
+import { Button, Typography, Tag, Badge, Popconfirm, Message, Collapse } from '@arco-design/web-react';
 import IconText from './icons/text.svg';
 import IconHorizontalVideo from './icons/horizontal.svg';
 import IconVerticalVideo from './icons/vertical.svg';
-import deleteCar from '@/services/car/deleteCar';
+import deleteTrip from '@/services/trip/deleteTrip';
 const { Text } = Typography;
-
-export const Status = ['未提交','审核中','审核成功','认证失败' ];
+const CollapseItem = Collapse.Item
+export const Status = [
+  {
+    color: 'green',
+    status: '未指定'
+  },
+  {
+    color: 'orange',
+    status: '过程中'
+  },
+  {
+    color: 'red',
+    status: '已结束'
+  },
+];
 
 
 /**
@@ -17,12 +30,12 @@ export function getColumns(
   t: unknown,
   fetchAllData: () => void,
   //setData: Dispatch<SetStateAction<any[]>>
-) {
+):any {
   /**
  * @删除用户
  */
   const handleDelete = async (record) => {
-    const res = await deleteCar({ data: { id: record.id } })
+    const res = await deleteTrip({ data: { id: record.id } })
     console.log(res);
 
     //刷新页面
@@ -31,47 +44,109 @@ export function getColumns(
   };
   return [
     {
-      title: 'AccountID',
-      dataIndex: 'account_id',
-      render: (value) => <Text key={`${value}`} copyable>{value}</Text>,
+      title: 'ID',
+      dataIndex: 'id',
+      ellipsis:true,
+      render: (value) => <Text key={`${value}`} ellipsis={true} copyable>{value}</Text>,
     },
     {
-      title: 'Photo',
-      dataIndex: 'photo_blob_id',
+      title: 'AccountId',
+      dataIndex: 'trip.account_id',
+      ellipsis:true,
+
+      render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,
     },
     {
-      title: 'LicNumber',
-      dataIndex: 'profile.identity.lic_number',
+      title: 'CarId',
+      dataIndex: 'trip.car_id',
+      render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,
     },
     {
-      title: 'Name',
-      dataIndex: 'profile.identity.name',
+      title: 'Trip',
+      dataIndex: 'trip',
+      render: (trip) => (
+        <Collapse
+          /*  defaultActiveKey={['1', '2', '3']} */
+          style={{ minWidth: '11vw' }}
+        >
+          <CollapseItem header='Start' name='1'>
+            <Collapse defaultActiveKey={'1.4'}>
+              <CollapseItem header={'Location'} name='1.1'>
+                <strong>Latitude: </strong> {trip.start.location.latitude}<br />
+                <strong> Longitude:</strong>{trip.start.location.longitude}
+              </CollapseItem>
+              <CollapseItem header='FeeCent' name='1.2'>
+                {trip.start.fee_cent}
+              </CollapseItem>
+              <CollapseItem header='KmDriven' name='1.3'>
+                {trip.start.km_driven}
+              </CollapseItem>
+              <CollapseItem header='PoiName' name='1.4'>
+                {trip.start.poi_name}
+              </CollapseItem>
+              <CollapseItem header='Timestamp_sec' name='1.5'>
+                {trip.start.timestamp_sec}
+              </CollapseItem>
+            </Collapse>
+          </CollapseItem>
+          <CollapseItem header='Current' name='2'>
+            <Collapse defaultActiveKey={'2.1'}>
+              <CollapseItem header={'Location'} name='2.1'>
+                <strong>Latitude: </strong> {trip.current.location.latitude}<br />
+                <strong> Longitude:</strong>{trip.current.location.longitude}
+              </CollapseItem>
+              <CollapseItem header='FeeCent' name='2.2'>
+                {trip.current.fee_cent}
+              </CollapseItem>
+              <CollapseItem header='KmDriven' name='2.3'>
+                {trip.current.km_driven}
+              </CollapseItem>
+              <CollapseItem header='PoiName' name='2.4'>
+                {trip.current.poi_name}
+              </CollapseItem>
+              <CollapseItem header='Timestamp_sec' name='2.5'>
+                {trip.current.timestamp_sec}
+              </CollapseItem>
+            </Collapse>
+          </CollapseItem>
+          <CollapseItem header='End' name='3'>
+            <Collapse defaultActiveKey={'3.1'}>
+              <CollapseItem header={'Location'} name='3.1'>
+                <strong>Latitude: </strong> {trip.end.location.latitude}<br />
+                <strong> Longitude:</strong>{trip.end.location.longitude}
+              </CollapseItem>
+              <CollapseItem header='FeeCent' name='3.2'>
+                {trip.end.fee_cent}
+              </CollapseItem>
+              <CollapseItem header='KmDriven' name='3.3'>
+                {trip.end.km_driven}
+              </CollapseItem>
+              <CollapseItem header='PoiName' name='3.4'>
+                {trip.end.poi_name}
+              </CollapseItem>
+              <CollapseItem header='Timestamp_sec' name='3.5'>
+                {trip.end.timestamp_sec}
+              </CollapseItem>
+            </Collapse>
+          </CollapseItem>
+        </Collapse>
+      )
     },
     {
-      title: 'Gender',
-      dataIndex: 'profile.identity.gender',
-    },
-    {
-      title: 'Birth',
-      dataIndex: 'profile.identity.birth_date_millis',
-    },
-    {
-      title: 'IdentityStatus',
-      dataIndex: 'profile.identity_status',
+      title: 'Status',
+      dataIndex: 'trip.status',
+      align: 'center',
       render: (x) => {
-        
-        if (x === 3) {
-          return <Badge status="error" text={Status[x]}></Badge>;
-        } else if(x===2){
-          return <Badge status="success" text={Status[x]}></Badge>;
-        } else if(x===1){
-          return <Badge status="warning" text={Status[x]}></Badge>;
-
-        } 
-        return <Badge status="default" text={Status[x]}></Badge>;
-
-      },
+        return <Tag bordered color={Status[x].color}>{Status[x].status}</Tag>
+      }
     },
+    {
+      title: 'IdentityID',
+      dataIndex: 'trip.identity_id',
+      ellipsis:true,
+      render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,
+    },
+
     {
       title: t['searchTable.columns.operations'],
       dataIndex: 'operations',

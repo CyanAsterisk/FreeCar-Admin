@@ -35,8 +35,7 @@ export function getColumns(
     {
       title: 'ID',
       dataIndex: 'id',
-      ellipsis:true,
-      render: (value) => <Text key={`${value}`} copyable>{value}</Text>,
+      render: (value) => <Text key={`${value}`} ellipsis={true} copyable>{value}</Text>,
     },
     {
       title: 'Status',
@@ -53,10 +52,13 @@ export function getColumns(
     {
       title: 'Latitude',
       dataIndex: 'car.position.latitude',
+      render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,
+
     },
     {
       title: 'Longitude',
       dataIndex: 'car.position.longitude',
+      render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,
     },
     {
       title: 'TripID',
@@ -65,6 +67,7 @@ export function getColumns(
     {
       title: 'Power',
       dataIndex: 'car.power',
+      ellipsis:true,
     },
     {
       title: 'PlateNumer',

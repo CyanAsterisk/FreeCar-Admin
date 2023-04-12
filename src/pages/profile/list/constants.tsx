@@ -38,10 +38,12 @@ export function getColumns(
     {
       title: 'Photo',
       dataIndex: 'photo_blob_id',
+      render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,
     },
     {
       title: 'LicNumber',
       dataIndex: 'profile.identity.lic_number',
+      render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,
     },
     {
       title: 'Name',
