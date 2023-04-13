@@ -16,8 +16,7 @@ const { Title } = Typography;
 import { getPendingProfileInfo} from '@/services/profile/profile';
 
 interface searchItem {
-  id: unknown | undefined
-  plate_num: string | undefined,
+  accountId: unknown | undefined
 }
 
 
@@ -29,7 +28,6 @@ function SearchTable() {
   const t = useLocale(locale);
 
 
-  //console.log(columns);
 
   const [primaryData, setprimaryData] = useState([]);
   const [data, setData] = useState(null)
@@ -40,7 +38,6 @@ function SearchTable() {
   const fetchPendingData = async () => {
     setLoading(true)
     const res = await getPendingProfileInfo()
-    console.log(res);
     
     const newArr = []
     res.data.profile.map((item) => {
@@ -67,18 +64,15 @@ function SearchTable() {
 
 
   const searchData = (target: searchItem) => {
-    console.log(target);
-    const { id, plate_num } = target;
-    if (id === undefined && plate_num === undefined) {
+    const { accountId } = target;
+    if (accountId === undefined) {
       return false
     }
-    const find = (id === undefined) ? plate_num : id;
+    const find = accountId;
     primaryData.map((item) => {
 
-      if (item.id === find || item.car.plate_num === find) {
+      if (item.account_id === find ) {
         setData([item])
-        console.log(item);
-
       }
     })
 

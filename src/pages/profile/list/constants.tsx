@@ -23,7 +23,6 @@ export function getColumns(
  */
   const handleDelete = async (record) => {
     const res = await deleteCar({ data: { id: record.id } })
-    console.log(res);
 
     //刷新页面
     await fetchAllData();

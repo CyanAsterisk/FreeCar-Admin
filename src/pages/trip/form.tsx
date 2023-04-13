@@ -58,15 +58,6 @@ function SearchForm(props: {
               <Input placeholder={'Please enter the ID'} allowClear />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
-            <Form.Item label={'PlateNumber'} field="plate_num" >
-              <Input
-                allowClear
-                placeholder={'Please enter the plate number'}
-              />
-            </Form.Item>
-          </Col>
-
         </Row>
       </Form>
       <div className={styles['right-button']}>

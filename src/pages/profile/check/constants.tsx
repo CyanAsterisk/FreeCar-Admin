@@ -33,7 +33,6 @@ export function getColumns(
       
     } else {
         const res = await checkProfile(body);
-        console.log(res);
     }
 
     //刷新页面

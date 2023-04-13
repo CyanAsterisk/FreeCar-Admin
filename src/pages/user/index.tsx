@@ -150,18 +150,6 @@ function SearchTable() {
         data={data}
         pagination={false}
       />
-      {/* <Table
-        className={'allData'}
-        rowKey="key"
-        noDataElement={' '}
-        //loading={loading}
-        //onChange={onChangeTable}
-        indentSize={15}
-        //showHeader={false}
-        columns={columns}
-        data={allData}
-        pagination={false}
-      /> */}
     </Card>
   );
 }

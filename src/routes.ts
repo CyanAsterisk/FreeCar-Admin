@@ -52,7 +52,7 @@ export const routes: IRoute[] = [
     ]
   },
   {
-    name:"Ttip",
+    name:"Trip",
     key:'trip',
     icon:IconUndo
   }

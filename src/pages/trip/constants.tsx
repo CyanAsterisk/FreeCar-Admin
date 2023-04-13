@@ -64,10 +64,11 @@ export function getColumns(
     {
       title: 'Trip',
       dataIndex: 'trip',
+      width:"14vw",
       render: (trip) => (
         <Collapse
           /*  defaultActiveKey={['1', '2', '3']} */
-          style={{ minWidth: '11vw' }}
+          style={{ minWidth: '12vw' }}
         >
           <CollapseItem header='Start' name='1'>
             <Collapse defaultActiveKey={'1.4'}>
@@ -84,13 +85,13 @@ export function getColumns(
               <CollapseItem header='PoiName' name='1.4'>
                 {trip.start.poi_name}
               </CollapseItem>
-              <CollapseItem header='Timestamp_sec' name='1.5'>
-                {trip.start.timestamp_sec}
+              <CollapseItem header='Time' name='1.5'>
+                {new Date(parseInt(trip.start.timestamp_sec)*1000).toLocaleString() }
               </CollapseItem>
             </Collapse>
           </CollapseItem>
           <CollapseItem header='Current' name='2'>
-            <Collapse defaultActiveKey={'2.1'}>
+            <Collapse defaultActiveKey={'2.4'}>
               <CollapseItem header={'Location'} name='2.1'>
                 <strong>Latitude: </strong> {trip.current.location.latitude}<br />
                 <strong> Longitude:</strong>{trip.current.location.longitude}
@@ -104,13 +105,13 @@ export function getColumns(
               <CollapseItem header='PoiName' name='2.4'>
                 {trip.current.poi_name}
               </CollapseItem>
-              <CollapseItem header='Timestamp_sec' name='2.5'>
-                {trip.current.timestamp_sec}
+              <CollapseItem header='Time' name='2.5'>
+              {new Date(parseInt(trip.current.timestamp_sec)*1000).toLocaleString() }
               </CollapseItem>
             </Collapse>
           </CollapseItem>
           <CollapseItem header='End' name='3'>
-            <Collapse defaultActiveKey={'3.1'}>
+            <Collapse defaultActiveKey={'3.4'}>
               <CollapseItem header={'Location'} name='3.1'>
                 <strong>Latitude: </strong> {trip.end.location.latitude}<br />
                 <strong> Longitude:</strong>{trip.end.location.longitude}
@@ -124,8 +125,8 @@ export function getColumns(
               <CollapseItem header='PoiName' name='3.4'>
                 {trip.end.poi_name}
               </CollapseItem>
-              <CollapseItem header='Timestamp_sec' name='3.5'>
-                {trip.end.timestamp_sec}
+              <CollapseItem header='Time' name='3.5'>
+              {new Date(parseInt(trip.end.timestamp_sec)*1000).toLocaleString() }
               </CollapseItem>
             </Collapse>
           </CollapseItem>

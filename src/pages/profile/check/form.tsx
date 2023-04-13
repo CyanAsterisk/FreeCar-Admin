@@ -29,7 +29,6 @@ function SearchForm(props: {
 
   const handleSubmit = () => {
     const values = form.getFieldsValue();
-    console.log(values);
 
     props.onSearch(values); //通过这个把搜索传给index里的搜索函数
   };
@@ -55,19 +54,10 @@ function SearchForm(props: {
       >
         <Row gutter={24}>
           <Col span={colSpan}>
-            <Form.Item label={'ID'} field="id">
-              <Input placeholder={'Please enter the ID'} allowClear />
+            <Form.Item label={'AccountID'} field="accountId">
+              <Input placeholder={'Please enter the AccountID'} allowClear />
             </Form.Item>
           </Col>
-          <Col span={colSpan}>
-            <Form.Item label={'PlateNumber'} field="plate_num" >
-              <Input
-                allowClear
-                placeholder={'Please enter the plate number'}
-              />
-            </Form.Item>
-          </Col>
-
         </Row>
       </Form>
       <div className={styles['right-button']}>

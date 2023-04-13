@@ -16,8 +16,7 @@ const { Title } = Typography;
 import { getSomeProfileInfo, getAllProfileInfo } from '@/services/profile/profile';
 
 interface searchItem {
-  id: unknown | undefined
-  plate_num: string | undefined,
+  accountId: unknown | undefined
 }
 /**
  * 
@@ -27,7 +26,6 @@ function SearchTable() {
   const t = useLocale(locale);
 
 
-  //console.log(columns);
 
   const [primaryData, setprimaryData] = useState([]);
   const [data, setData] = useState(null)
@@ -39,13 +37,12 @@ function SearchTable() {
   const fetchSomeData = async () => {
     setLoading(true)
     const res = await getSomeProfileInfo()
-    console.log(res);
     
     const newArr = []
     res.data.profile.map((item) => {
       
       newArr.push(
-        Object.assign({}, item, { 'key': `{${item.account_id}+${item.profile.identity.name}}` })
+        Object.assign({}, item, { 'key': `${item.account_id}` })
       )
     })
 
@@ -56,15 +53,14 @@ function SearchTable() {
 
   const fetchRestData = async () => {
     const res = await getAllProfileInfo();
-    console.log(res);
     const restArr = []
     res.data.profile.map((item) => {
       restArr.push(
-        Object.assign({}, item, { 'key': `{${item.account_id}+${item.profile.identity.name}}` })
+        Object.assign({}, item, { 'key': `${item.account_id}` })
       )
     })
 
-    setData(Array.from(new Set(data.concat(restArr))))
+    setData(restArr)
     setprimaryData(Array.from(new Set(primaryData.concat(restArr))));
 
   }
@@ -80,25 +76,16 @@ function SearchTable() {
     fetchAllData()
   }, [showIntialization, JSON.stringify(formParams)]);
 
-  const addUser = () => { //添加用户
-    setShowstate('block')
-  }
-
-
-
   const searchData = (target: searchItem) => {
-    console.log(target);
-    const { id, plate_num } = target;
-    if (id === undefined && plate_num === undefined) {
+    const { accountId } = target;
+    if (accountId === undefined) {
       return false
     }
-    const find = (id === undefined) ? plate_num : id;
+    const find = accountId;
     primaryData.map((item) => {
 
-      if (item.id === find || item.car.plate_num === find) {
+      if (item.account_id === find ) {
         setData([item])
-        console.log(item);
-
       }
     })
 
