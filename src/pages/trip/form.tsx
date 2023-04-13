@@ -53,7 +53,7 @@ function SearchForm(props: {
         wrapperCol={{ span: 19 }}
       >
         <Row gutter={24}>
-          <Col span={colSpan}>
+          <Col span={8}>
             <Form.Item label={'ID'} field="id">
               <Input placeholder={'Please enter the ID'} allowClear />
             </Form.Item>

@@ -42,7 +42,7 @@ function SearchForm(props: {
 
 
 
-  const colSpan = lang === 'zh-CN' ? 8 : 12;
+  const colSpan = 12;
 
   return (
     <div className={styles['search-form-wrapper']}>

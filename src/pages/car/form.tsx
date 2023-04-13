@@ -42,7 +42,7 @@ function SearchForm(props: {
 
 
 
-  const colSpan = lang === 'zh-CN' ? 8 : 12;
+  const colSpan = 12/* lang === 'zh-CN' ? 8 :  */;
 
   return (
     <div className={styles['search-form-wrapper']}>
@@ -54,14 +54,17 @@ function SearchForm(props: {
         wrapperCol={{ span: 19 }}
       >
         <Row gutter={24}>
-          <Col span={colSpan}>
+          <Col span={8}>
             <Form.Item label={'ID'} field="id">
-              <Input placeholder={'Please enter the ID'} allowClear />
+              <Input
+                placeholder={'Please enter the ID'}
+                allowClear />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
             <Form.Item label={'PlateNumber'} field="plate_num" >
               <Input
+                // style={{ marginLeft: '2vw' }}
                 allowClear
                 placeholder={'Please enter the plate number'}
               />
