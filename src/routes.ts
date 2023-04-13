@@ -1,6 +1,7 @@
 import auth, { AuthParams } from '@/utils/authentication';
 import { useEffect, useMemo, useState } from 'react';
 import {
+  IconSettings,
   IconUser,
   IconTags,
   IconIdcard,
@@ -55,6 +56,11 @@ export const routes: IRoute[] = [
     name:"Trip",
     key:'trip',
     icon:IconUndo
+  },
+  {
+    name:"Admin",
+    key:'admin',
+    icon:IconSettings
   }
 ];
 
@@ -89,6 +95,8 @@ const useRoute = (userPermission): [IRoute[], string] => {
     }
     for (const route of routes) {
       const { requiredPermissions, oneOfPerm } = route;
+      console.log(route);
+      
       let visible = true;
       if (requiredPermissions) {
         visible = auth({ requiredPermissions, oneOfPerm }, userPermission);
@@ -107,6 +115,7 @@ const useRoute = (userPermission): [IRoute[], string] => {
         arr.push({ ...route });
       }
     }
+console.log(arr);
 
     return arr;
   };

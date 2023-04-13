@@ -4,6 +4,21 @@ import LoginBanner from './banner';
 import styles from './style/index.module.less';
 function Login() {
   useEffect(() => {
+    console.log(document.URL);
+
+    if (!(window.history.state && window.history.state.target === 'Final')) {
+      window.history.pushState({ target: 'MeanSure', random: Math.random() }, '', window.location.href);
+      window.history.pushState({ target: 'Final', random: Math.random() }, '', window.location.href);
+    }
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.target === 'MeanSure') {
+        // 此处可调用一些自定义的操作，例如弹窗提示之类的
+        window.history.forward();
+      }
+
+    }, false);
+
+
     document.body.setAttribute('arco-theme', 'light');
   }, []);
 
@@ -21,7 +36,7 @@ function Login() {
         <div className={styles['content-inner']}>
           <LoginForm />
         </div>
-        
+
       </div>
     </div>
   );
