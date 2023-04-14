@@ -89,15 +89,17 @@ function SearchTable() {
   const searchData = (target: searchItem) => {
     console.log(target);
     const { id, plate_num } = target;
-    if (id === undefined && plate_num === undefined) {
+    console.log(plate_num);
+    
+    if (id === '' && plate_num === '') {
       return false
     }
-    const find = (id === undefined) ? plate_num : id;
+    const find = (id === '') ? plate_num : id;
+    
     primaryData.map((item) => {
 
       if (item.id === find || item.car.plate_num === find) {
         setData([item])
-        console.log(item);
 
       }
     })
