@@ -38,9 +38,7 @@ export function getColumns(
  * @删除用户
  */
   const handleDelete = async (record) => {
-    console.log(record);
     const res = await deleteUser({ data: { account_id: record.account_id } })
-    console.log(res);
 
     //刷新页面
     await fetchAllData();
@@ -61,11 +59,11 @@ export function getColumns(
       dataIndex: 'phone_number',
     },
     {
-      title: 'Avatar Blob ID',
+      title: 'Avatar',
       dataIndex: 'avatar_blob_id',
     },
     {
-      title: 'Open ID',
+      title: 'OpenID',
       dataIndex: 'open_id',
     },
     {

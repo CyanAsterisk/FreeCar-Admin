@@ -103,9 +103,10 @@ function SearchTable() {
     }
     let find = (id === undefined) ? phone : id;
     find = (find === undefined) ? name : find;
-    primaryData.map((item) => {
-
-      if (JSON.stringify(item.account_id) === find || item.username === find || JSON.stringify(item.phone_number) === find) {
+    let flag = (id === undefined) ? 'phone_number' : 'account_id';
+    flag = (phone === undefined) ? 'username' : flag;
+    primaryData.map((item) => {      
+      if (item[flag]=== find) {        
         setData([item])
       }
     })
@@ -113,7 +114,7 @@ function SearchTable() {
   }
   const resetData = () => {
     setData(primaryData)
-    
+
   }
 
   return (

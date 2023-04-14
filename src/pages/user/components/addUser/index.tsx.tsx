@@ -23,6 +23,10 @@ const AddUser = ((props: IAddUserProps) => {
     const handleClick = async () => {
         const data = form.getFieldsValue()
         console.log(data);
+        data['account_id'] = JSON.stringify(data['account_id'])
+        data['phone_number'] = JSON.stringify(data['phone_number'])
+        data['avatar_blod_id'] = JSON.stringify(data['avatar_blod_id'])
+
         const res = await addUser(data as addUserInfo)
 
         const status = res.data.base_resp.status_msg;

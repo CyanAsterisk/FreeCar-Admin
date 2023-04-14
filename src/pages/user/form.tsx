@@ -29,7 +29,6 @@ function SearchForm(props: {
 
   const handleSubmit = () => {
     const values = form.getFieldsValue();
-    console.log(values);
 
     props.onSearch(values); //通过这个把搜索传给index里的搜索函数
   };

@@ -95,7 +95,6 @@ const useRoute = (userPermission): [IRoute[], string] => {
     }
     for (const route of routes) {
       const { requiredPermissions, oneOfPerm } = route;
-      console.log(route);
       
       let visible = true;
       if (requiredPermissions) {
@@ -115,7 +114,6 @@ const useRoute = (userPermission): [IRoute[], string] => {
         arr.push({ ...route });
       }
     }
-console.log(arr);
 
     return arr;
   };
