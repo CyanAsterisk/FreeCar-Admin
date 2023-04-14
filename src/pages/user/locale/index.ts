@@ -23,7 +23,7 @@ const i18n = {
     'searchForm.name.placeholder': 'Please enter the collection name',
     'searchForm.all.placeholder': 'all',
 
-    'user.id': 'UserID',
+    'user.id': 'AccountID',
     'user.name': 'Username',
     'user.phone.number': 'PhoneNumber',
     'searchTable.columns.operations.delete': 'delete',
@@ -31,7 +31,7 @@ const i18n = {
     'searchForm.phone.placeholder': 'please input phone number',
   },
   'zh-CN': {
-    'user.id': '用户ID',
+    'user.id': '用户账户',
     'user.name': '用户名称',
     "user.phone.number": '手机号码',
     'searchTable.columns.phone': '手机号',
