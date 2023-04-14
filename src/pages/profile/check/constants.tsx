@@ -33,6 +33,7 @@ export function getColumns(
       
     } else {
         const res = await checkProfile(body);
+        console.log(res);
     }
 
     //刷新页面
@@ -53,7 +54,7 @@ export function getColumns(
     {
       title: 'LicNumber',
       dataIndex: 'profile.identity.lic_number',
-      render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,
+      ellipsis:true
     },
     {
       title: 'Name',

@@ -25,7 +25,6 @@ const App = () => {
     const [showIntialization, setShowstate] = useState('none');
 
     return (
-        <div className='userSettingBox'>
             <Card>
                 <ChangePassword showIntialization={showIntialization} setShowState={setShowstate} />
                 <Descriptions
@@ -43,7 +42,6 @@ const App = () => {
                     修改密码
                 </Button>
             </Card>
-        </div>
     );
 };
 

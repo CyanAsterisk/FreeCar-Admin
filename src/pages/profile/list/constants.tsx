@@ -3,10 +3,10 @@ import { Button, Typography, Badge, Popconfirm, Message } from '@arco-design/web
 import IconText from './icons/text.svg';
 import IconHorizontalVideo from './icons/horizontal.svg';
 import IconVerticalVideo from './icons/vertical.svg';
-import deleteCar from '@/services/car/deleteCar';
+import deleteProfile from '@/services/profile/deleteProfile'
 const { Text } = Typography;
 
-export const Status = ['未提交','审核中','审核成功','认证失败' ];
+export const Status = ['未提交', '审核中', '审核成功', '认证失败'];
 
 
 /**
@@ -22,7 +22,10 @@ export function getColumns(
  * @删除用户
  */
   const handleDelete = async (record) => {
-    const res = await deleteCar({ data: { id: record.id } })
+    console.log(record);
+
+    const res = await deleteProfile({ data: { account_id: record.account_id } })
+    console.log(res);
 
     //刷新页面
     await fetchAllData();
@@ -60,15 +63,15 @@ export function getColumns(
       title: 'IdentityStatus',
       dataIndex: 'profile.identity_status',
       render: (x) => {
-        
+
         if (x === 3) {
           return <Badge status="error" text={Status[x]}></Badge>;
-        } else if(x===2){
+        } else if (x === 2) {
           return <Badge status="success" text={Status[x]}></Badge>;
-        } else if(x===1){
+        } else if (x === 1) {
           return <Badge status="warning" text={Status[x]}></Badge>;
 
-        } 
+        }
         return <Badge status="default" text={Status[x]}></Badge>;
 
       },
