@@ -27,11 +27,11 @@ function Login() {
       <div className={styles.logo}>
         <div className={styles['logo-text']}>FreeCar-Admin</div>
       </div>
-      <div className={styles.banner}>
+      {/* <div className={styles.banner}>
         <div className={styles['banner-inner']}>
           <LoginBanner />
         </div>
-      </div>
+      </div> */}
       <div className={styles.content}>
         <div className={styles['content-inner']}>
           <LoginForm />

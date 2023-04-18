@@ -8,13 +8,14 @@ import {
 import { FormInstance } from '@arco-design/web-react/es/Form';
 import { IconLock, IconUser } from '@arco-design/web-react/icon';
 import React, { useEffect, useRef, useState } from 'react';
-//import axios from '../../utils/request';
 import axios from 'axios'
 import useStorage from '@/utils/useStorage';
 import { useNavigate } from 'react-router-dom';
 import useLocale from '@/utils/useLocale';
 import locale from './locale';
 import styles from './style/index.module.less';
+import FreeCar from '@/assets/FreeCar.png'
+
 export default function LoginForm() {
   const navigate = useNavigate();
   const formRef = useRef<FormInstance>();
@@ -65,15 +66,9 @@ export default function LoginForm() {
       username: userName,
       password: password
     }
-    //https://lanlance.cn:9528
-    //https://freecar.lanlance.cn
-    //https://10.20.192.105:8080
     console.log(body);
 
     axios({
-      headers: {
-        //  'Content-Type': 'multipart/form-data'
-      },
       method: 'post',
       url: 'https://freecar.lanlance.cn/login/admin',
       data: body,
@@ -83,11 +78,11 @@ export default function LoginForm() {
         const status = res.data.base_resp.status_msg;
         console.log(status);
         //*保存登陆状态
-        
+
         if (status === 'success') {
           const token = res.data.token;
           console.log(token);
-          
+
           afterLoginSuccess(params);
           localStorage.setItem('token', token);
           navigate('/');
@@ -126,9 +121,10 @@ export default function LoginForm() {
 
   return (
     <div className={styles['login-form-wrapper']}>
-      <div className={styles['login-form-title']}>{t['login.form.title']}</div>
-      <div className={styles['login-form-sub-title']}>
-        {t['login.form.title']}
+      <div className={styles['freecar-logo']}>
+        <img
+          src={FreeCar}
+        ></img>
       </div>
       <div className={styles['login-form-error-msg']}>{errorMessage}</div>
       <Form

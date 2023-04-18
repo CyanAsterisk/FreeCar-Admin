@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { ConfigProvider } from '@arco-design/web-react';
 import zhCN from '@arco-design/web-react/es/locale/zh-CN';
 import enUS from '@arco-design/web-react/es/locale/en-US';
-import { BrowserRouter,HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import rootReducer from './store';
 import PageLayout from './layout';
@@ -15,7 +15,7 @@ import Login from './pages/login';
 import checkLogin from './utils/checkLogin';
 import changeTheme from './utils/changeTheme';
 import useStorage from './utils/useStorage';
-import { RecoilRoot } from 'recoil';
+import { DefaultValue, RecoilRoot } from 'recoil';
 import './mock';
 
 const store = createStore(rootReducer);
@@ -72,6 +72,9 @@ function Index() {
       <RecoilRoot>
         <ConfigProvider
           locale={getArcoLocale()}
+          theme={
+            DefaultValue
+          }
           componentConfig={{
             Card: {
               bordered: false,

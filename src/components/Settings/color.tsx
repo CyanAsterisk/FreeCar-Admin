@@ -8,6 +8,7 @@ import useLocale from '@/utils/useLocale';
 import styles from './style/color-panel.module.less';
 
 function ColorPanel() {
+  
   const theme =
     document.querySelector('body').getAttribute('arco-theme') || 'light';
   const settings = useSelector((state: GlobalState) => state.settings);
@@ -25,6 +26,7 @@ function ColorPanel() {
           <SketchPicker
             color={themeColor}
             onChangeComplete={(color) => {
+
               const newColor = color.hex;
               dispatch({
                 type: 'update-settings',
@@ -37,7 +39,7 @@ function ColorPanel() {
               newList.forEach((l, index) => {
                 const rgbStr = getRgbStr(l);
                 document.body.style.setProperty(
-                  `--arcoblue-${index + 1}`,
+                  `--red-${index + 1}`,
                   rgbStr
                 );
               });
