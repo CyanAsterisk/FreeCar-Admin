@@ -44,3 +44,9 @@ yarn-error.log*
 .stylelintcache
 
 .history
+/.idea/FreeCar-Admin.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/vcs.xml
+/.idea/workspace.xml

@@ -4,11 +4,9 @@ import { ContentType } from './../pages/user/constants';
  */
 
 import Axios from 'axios'
-//https://lanlance.cn:9528
-//https://freecar.lanlance.cn
-//https://10.20.192.105:8080
+
 const axios = Axios.create({
-    baseURL: 'https://freecar.lanlance.cn',
+    baseURL: 'https://127.0.0.1:9991',
     
     timeout: 5000,
 });
