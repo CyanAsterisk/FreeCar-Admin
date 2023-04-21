@@ -70,7 +70,7 @@ export default function LoginForm() {
 
     axios({
       method: 'post',
-      url: 'https://freecar.lanlance.cn/login/admin',
+      url: 'https://127.0.0.1:9991/login/admin',
       data: body,
 
     })
