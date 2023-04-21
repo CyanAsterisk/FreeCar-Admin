@@ -38,8 +38,14 @@ const i18n = {
     'navbar.search.placeholder': 'Please search',
   },
   'zh-CN': {
-    'User':'用户列表',
-    'Car':"",
+    'User': '用户列表',
+    'Car': "汽车列表",
+    'Profile': '主页列表',
+    'Trip': '行程列表',
+    'Check': '审核列表',
+    'Profile List': '主页列表',
+    'Admin':'管理员设置',
+
     'menu.dashboard': '仪表盘',
     'menu.dashboard.workplace': '工作台',
     'menu.user.info': '用户信息',
@@ -47,7 +53,7 @@ const i18n = {
     'menu.user.switchRoles': '切换角色',
     'menu.user.role.admin': '管理员',
     'menu.user.role.user': '普通用户',
-    
+
     'navbar.logout': '退出登录',
     'settings.title': '页面配置',
     'settings.themeColor': '主题色',

@@ -5,7 +5,7 @@ const { Text } = Typography;
 
 export const ContentType = ['图文', '横版短视频', '竖版短视频'];
 export const FilterType = ['规则筛选', '人工'];
-export const Status = ['未提交','审核中','审核成功','认证失败' ];
+export const Status = ['未提交', '审核中', '审核成功', '认证失败'];
 
 
 /**
@@ -20,20 +20,20 @@ export function getColumns(
   /**
  * @删除用户
  */
-  const handleCheck = async (choice,record) => {
+  const handleCheck = async (choice, record) => {
     //const res = await checkProfile()
-    console.log(choice,record);
+    console.log(choice, record);
     const body = {
-      account_id:record.account_id,
-      accept:choice === 1 ? true :false
+      account_id: record.account_id,
+      accept: choice === 1 ? true : false
     }
-    if(choice){ //通过
+    if (choice) { //通过
       const res = await checkProfile(body);
       console.log(res);
-      
+
     } else {
-        const res = await checkProfile(body);
-        console.log(res);
+      const res = await checkProfile(body);
+      console.log(res);
     }
 
     //刷新页面
@@ -54,7 +54,7 @@ export function getColumns(
     {
       title: 'LicNumber',
       dataIndex: 'profile.identity.lic_number',
-      ellipsis:true
+      ellipsis: true
     },
     {
       title: 'Name',
@@ -72,15 +72,15 @@ export function getColumns(
       title: 'IdentityStatus',
       dataIndex: 'profile.identity_status',
       render: (x) => {
-        
+
         if (x === 3) {
           return <Badge status="error" text={Status[x]}></Badge>;
-        } else if(x===2){
+        } else if (x === 2) {
           return <Badge status="success" text={Status[x]}></Badge>;
-        } else if(x===1){
+        } else if (x === 1) {
           return <Badge status="warning" text={Status[x]}></Badge>;
 
-        } 
+        }
         return <Badge status="default" text={Status[x]}></Badge>;
 
       },
@@ -95,12 +95,12 @@ export function getColumns(
           <Popconfirm
             focusLock
             title='Confirm'
-            content='Are you sure you want to delete?'
+            content='Are you sure you want to accept?'
             onOk={() => {
               Message.info({
                 content: 'ok',
               });
-              handleCheck(1,record);
+              handleCheck(1, record);
 
             }}
             onCancel={() => {
@@ -114,19 +114,19 @@ export function getColumns(
               type="text"
               size="small"
 
-              style={{color:'#00B42A'}}            >
+              style={{ color: '#00B42A' }}            >
               {t['searchTable.columns.operations.accept']}
             </Button>
           </Popconfirm>
           <Popconfirm
             focusLock
             title='Confirm'
-            content='Are you sure you want to delete?'
+            content='Are you sure you want to reject?'
             onOk={() => {
               Message.info({
                 content: 'ok',
               });
-              handleCheck(0,record);
+              handleCheck(0, record);
 
             }}
             onCancel={() => {
@@ -139,7 +139,7 @@ export function getColumns(
             <Button
               type="text"
               size="small"
-              style={{color:'red'}}
+              style={{ color: 'red' }}
             //onClick={handleDelete}
             >
               {t['searchTable.columns.operations.reject']}

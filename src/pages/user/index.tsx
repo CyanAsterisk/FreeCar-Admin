@@ -80,8 +80,7 @@ function SearchTable() {
   const fetchAllData = async () => {
     await fetchSomeData();
     await fetchRestData()
-
-  }
+}
 
   const columns = useMemo(() => getColumns(t, handleUpdate, fetchAllData, setRecord), [t]);
 
@@ -105,8 +104,8 @@ function SearchTable() {
     find = (find === undefined) ? name : find;
     let flag = (id === undefined) ? 'phone_number' : 'account_id';
     flag = (phone === undefined) ? 'username' : flag;
-    primaryData.map((item) => {      
-      if (item[flag]=== find) {        
+    primaryData.map((item) => {
+      if (item[flag] === find) {
         setData([item])
       }
     })
