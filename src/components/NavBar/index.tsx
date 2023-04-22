@@ -158,10 +158,12 @@ function Navbar({ show }: { show: boolean }) {
         {userInfo && (
           <li>
             <Dropdown droplist={droplist} position="br">
-              <Avatar size={32} style={{ cursor: 'pointer' }}>
+              {/* <Avatar size={32} style={{ cursor: 'pointer' }}>
                 <img alt="avatar" src={'https://picture.lanlance.cn/i/2023/04/18/643e1fcf40194.png'} />
-              </Avatar>
-              {/* <IconRobot style={{ cursor: 'pointer' }} /> */}
+              </Avatar> */}
+              <IconButton
+                icon={theme !== 'dark' ? <IconRobot /> : <IconRobot />}
+              />
             </Dropdown>
           </li>
         )}
