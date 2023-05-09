@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react'
 import { Form, Input, Button, Message, InputNumber, Notification } from '@arco-design/web-react';
 const FormItem = Form.Item;
 import './index.less'
+import useLocale from '@/utils/useLocale';
+import local from '../../locale'
 import { IconCloseCircle } from '@arco-design/web-react/icon';
 import addCar, { addCarInfo } from '../../../../services/car/addCar'
 interface IAddUserProps {
@@ -14,7 +16,7 @@ const AddUser = ((props: IAddUserProps) => {
     const { showIntialization, setShowState } = props
     const [form] = Form.useForm();
     const divRef = useRef(null)
-
+    const t = useLocale(local)
     /* 关闭页面 */
     const closeUserAddPage = () => {
         setShowState('none')
@@ -58,16 +60,16 @@ const AddUser = ((props: IAddUserProps) => {
                     </Button>
                 </div>
                 <FormItem
-                    label='PlateNumber'
+                    label={t['PlateNumber']}
                     field='plate_num'
                     required
                 >
-                    <Input placeholder='please enter the plate number' />
+                    <Input placeholder={t['please enter the plate number']} />
                 </FormItem>
 
                 <FormItem wrapperCol={{ offset: 5 }}>
                     <Button type='primary' htmlType='submit' onClick={handleClick}>
-                        Submit
+                        {t['Submit']}
                     </Button>
                     <Button
                         style={{ marginLeft: 2 }}
@@ -75,7 +77,7 @@ const AddUser = ((props: IAddUserProps) => {
                             form.resetFields();
                         }}
                     >
-                        Reset
+                        {t['Reset']}
                     </Button>
                 </FormItem>
             </Form>

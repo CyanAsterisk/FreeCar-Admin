@@ -29,6 +29,15 @@ const i18n = {
     'searchTable.columns.operations.delete': 'delete',
     'searchTable.columns.phone': 'phone',
     'searchForm.phone.placeholder': 'please input phone number',
+    'accountId': 'Account ID',
+    'Please enter the AccountID': 'Please enter the AccountID',
+    'Photo':'Photo',
+    'LicNumber':'LicNumber',
+    'Name':'Name',
+    'Gender':'Gender',
+    'Birth':'Birth',
+    'IdentityStatus':'IdentityStatus',
+
   },
   'zh-CN': {
     'user.id': '用户编号',
@@ -36,6 +45,15 @@ const i18n = {
     "user.phone.number": '手机号码',
     'searchTable.columns.phone': '手机号码',
     'searchForm.phone.placeholder': '请输入手机号码',
+    'accountId': '用户账号',
+    'Please enter the AccountID': '请输入用户账号',
+    'Photo':'照片',
+    'LicNumber':'认证号码',
+    'Name':'姓名',
+    'Gender':'性别',
+    'Birth':'出生日期',
+    'IdentityStatus':'身份审核状态',
+
 
     'menu.list': '列表页',
     'menu.list.searchTable': '查询表格',

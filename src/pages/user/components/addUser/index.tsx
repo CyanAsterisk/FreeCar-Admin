@@ -4,6 +4,9 @@ const FormItem = Form.Item;
 import './index.less'
 import { IconCloseCircle } from '@arco-design/web-react/icon';
 import addUser, { addUserInfo } from '../../../../services/user/addUser'
+import useLocale from '@/utils/useLocale';
+import local from '../../locale'
+
 interface IAddUserProps {
     setShowState: (display) => void,
     showIntialization: string
@@ -14,7 +17,7 @@ const AddUser = ((props: IAddUserProps) => {
     const { showIntialization, setShowState } = props
     const [form] = Form.useForm();
     const divRef = useRef(null)
-
+    const t = useLocale(local)
     /* 关闭页面 */
     const closeUserAddPage = () => {
         setShowState('none')
@@ -33,12 +36,12 @@ const AddUser = ((props: IAddUserProps) => {
         if (status === 'success') {
             Notification.success({
                 title: 'Success',
-                content: 'Add a new user successfully',
+                content: t['Add a new user successfully'],
             })
         } else {
             Notification.error({
                 title: 'Failed',
-                content: 'Fail to add a new user',
+                content: t['Fail to add a new user'],
             })
         }
         form.resetFields();
@@ -67,47 +70,47 @@ const AddUser = ((props: IAddUserProps) => {
                     </Button>
                 </div>
                 <FormItem
-                    label='Account Id'
+                    label={t['accountId']}
                     field='account_id'
-                    extra='Please enter number'
+                    extra={t['Please enter number']}
                     required
                 >
-                    <InputNumber placeholder='please enter the account id' />
+                    <InputNumber placeholder={t['accountId.input']} />
                 </FormItem>
                 <FormItem
-                    label='Username'
+                    label={t['Username']}
                     field='username'
                     required
                 >
-                    <Input placeholder='please enter the username' />
+                    <Input placeholder={t['Please enter the username']} />
                 </FormItem>
                 <FormItem
-                    label='Phone Number'
+                    label={t['Phone Number']}
                     field='phone_number'
-                    extra='Please enter number'
+                    extra={t['Please enter number']}
                     required
                 >
-                    <InputNumber placeholder='please enter the phone number' />
+                    <InputNumber placeholder={t['Please enter the phone number']} />
                 </FormItem>
                 <FormItem
-                    label='Avatar Blob Id'
+                    label={t['Avatar Blob Id']}
                     field='avatar_blod_id'
-                    extra='Please enter number'
+                    extra={t['Please enter number']}
                     required
                 >
-                    <InputNumber placeholder='please enter the avatar blob id' />
+                    <InputNumber placeholder={t['please enter the avatar blob id']} />
                 </FormItem>
                 <FormItem
-                    label='Open Id'
+                    label={t['Open Id']}
                     field='open_id'
                     required
                 >
-                    <Input placeholder='please enter the open id' />
+                    <Input placeholder={t['please enter the open id']} />
                 </FormItem>
 
                 <FormItem wrapperCol={{ offset: 5 }}>
                     <Button type='primary' htmlType='submit' onClick={handleClick}>
-                        Submit
+                        {t['Submit']}
                     </Button>
                     <Button
                         style={{ marginLeft: 2 }}
@@ -115,7 +118,7 @@ const AddUser = ((props: IAddUserProps) => {
                             form.resetFields();
                         }}
                     >
-                        Reset
+                        {t['Reset']}
                     </Button>
                 </FormItem>
             </Form>

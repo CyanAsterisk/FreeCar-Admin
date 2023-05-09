@@ -11,6 +11,8 @@
     flex: 1;
     position: relative;
     padding-bottom: 40px;
+    background: linear-gradient(rgb(235, 193, 247), rgb(238, 233, 240));
+
   }
 
   .footer {
@@ -22,8 +24,12 @@
 }
 
 .freecar-logo {
-  width: 30vw;
-  margin: 0 auto;
+  width: 29vw;
+  height: 16vh;
+  background-image: url('../../../assets/FreeCar.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+
   /* position: relative;
   top: 3.5vh;
   left: -4vw; */
@@ -98,11 +104,22 @@
 }
 
 .login-form {
+
+
   &-wrapper {
-    width: 30vw;
+    width: 23vw;
+    padding: 5vw 3vw;
+    padding-top: 5vw;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     align-items: center;
+    border-radius: 2vw;
+    border: 1px solid #c9c7c7;
+    box-shadow: 5px 5px 10px -4px #ada7a7;
+    background-color: #fff;
+
+    
   }
 
   &-title {
@@ -134,6 +151,3 @@
   }
 }
 
-.arco-form {
-  width: 30vw !important;
-}

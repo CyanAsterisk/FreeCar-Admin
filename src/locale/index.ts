@@ -36,6 +36,10 @@ const i18n = {
     'message.empty.tips': 'No Content',
     'message.lang.tips': 'Language switch to ',
     'navbar.search.placeholder': 'Please search',
+
+    'visualization': 'Visualization',
+    'Analysis': 'Analysis',
+    'Multi Data Analysis': 'Multi Data Analysis',
   },
   'zh-CN': {
     'User': '用户列表',
@@ -44,7 +48,10 @@ const i18n = {
     'Trip': '行程列表',
     'Check': '审核列表',
     'Profile List': '主页列表',
-    'Admin':'管理员设置',
+    'Admin': '管理员设置',
+    'visualization': '可视化页面',
+    'Analysis': '分析页',
+    'Multi Data Analysis': '多维数据分析页',
 
     'menu.dashboard': '仪表盘',
     'menu.dashboard.workplace': '工作台',

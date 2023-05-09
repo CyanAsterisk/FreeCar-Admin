@@ -70,7 +70,7 @@ export default function LoginForm() {
 
     axios({
       method: 'post',
-      url: 'https://127.0.0.1:9991/login/admin',
+      url: 'https://freecar.lanlance.cn/login/admin',
       data: body,
 
     })
@@ -122,9 +122,9 @@ export default function LoginForm() {
   return (
     <div className={styles['login-form-wrapper']}>
       <div className={styles['freecar-logo']}>
-        <img
+        {/* <img
           src={FreeCar}
-        ></img>
+        ></img> */}
       </div>
       <div className={styles['login-form-error-msg']}>{errorMessage}</div>
       <Form
@@ -141,6 +141,7 @@ export default function LoginForm() {
             prefix={<IconUser />}
             placeholder={t['login.form.userName.placeholder']}
             onPressEnter={onSubmitClick}
+            className={'inputBox'}
           />
         </Form.Item>
         <Form.Item
@@ -151,6 +152,7 @@ export default function LoginForm() {
             prefix={<IconLock />}
             placeholder={t['login.form.password.placeholder']}
             onPressEnter={onSubmitClick}
+            className={'inputBox'}
           />
         </Form.Item>
         <Space size={16} direction="vertical">
@@ -160,7 +162,14 @@ export default function LoginForm() {
             </Checkbox>
             {/* <Link>{t['login.form.forgetPassword']}</Link> */}
           </div>
-          <Button type="primary" long onClick={onSubmitClick} loading={loading}>
+          <Button
+            type="primary"
+            shape='round'
+            long
+            onClick={onSubmitClick}
+            loading={loading}
+            className={'loginBtn'}
+          >
             {t['login.form.login']}
           </Button>
         </Space>

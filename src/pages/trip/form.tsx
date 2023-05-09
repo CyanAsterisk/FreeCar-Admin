@@ -54,8 +54,8 @@ function SearchForm(props: {
       >
         <Row gutter={24}>
           <Col span={8}>
-            <Form.Item label={'ID'} field="id">
-              <Input placeholder={'Please enter the ID'} allowClear />
+            <Form.Item label={t['ID']} field="id">
+              <Input placeholder={t['Please enter the ID']} allowClear />
             </Form.Item>
           </Col>
         </Row>
@@ -64,7 +64,7 @@ function SearchForm(props: {
         <Button type="primary" icon={<IconSearch />} onClick={handleSubmit}>
           {t['searchTable.form.search']}
         </Button>
-        <Button icon={<IconRefresh />} onClick={handleReset}>
+        <Button icon={<IconRefresh />} onClick={handleReset} style={{ 'margin-top': '1vw' }}>
           {t['searchTable.form.reset']}
         </Button>
       </div>

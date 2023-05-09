@@ -7,7 +7,10 @@ import {
   IconIdcard,
   IconPen,
   IconList,
-  IconUndo 
+  IconUndo,
+  IconApps,
+  IconBook,
+  IconCommand 
 } from '@arco-design/web-react/icon'
 import type { IconProps } from '@arco-design/web-react/icon';
 
@@ -53,14 +56,33 @@ export const routes: IRoute[] = [
     ]
   },
   {
-    name:"Trip",
-    key:'trip',
-    icon:IconUndo
+    name: 'visualization',
+    key: 'visualization',
+    icon: IconApps,
+    children: [
+
+      {
+        name: "Analysis",
+        key: 'visualization/data-analysis',
+        icon: IconBook
+      },
+      {
+        name: 'Multi Data Analysis',
+        key: 'visualization/multi-dimension-data-analysis',
+        icon: IconCommand,
+        //hideInMenu:true
+      },
+    ]
   },
   {
-    name:"Admin",
-    key:'admin',
-    icon:IconSettings
+    name: "Trip",
+    key: 'trip',
+    icon: IconUndo
+  },
+  {
+    name: "Admin",
+    key: 'admin',
+    icon: IconSettings
   }
 ];
 
@@ -95,7 +117,7 @@ const useRoute = (userPermission): [IRoute[], string] => {
     }
     for (const route of routes) {
       const { requiredPermissions, oneOfPerm } = route;
-      
+
       let visible = true;
       if (requiredPermissions) {
         visible = auth({ requiredPermissions, oneOfPerm }, userPermission);

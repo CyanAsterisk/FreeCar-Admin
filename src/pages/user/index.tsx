@@ -19,7 +19,7 @@ import './mock';
 import { getColumns } from './constants';
 import './style/index.less'
 const { Title } = Typography;
-import AddUser from './components/addUser/index.tsx';
+import AddUser from './components/addUser/index';
 import UpdateUser from './components/updateUser';
 import { getSomeUserInfo, getAllUserInfo } from '@/services/user/user';
 
@@ -80,7 +80,7 @@ function SearchTable() {
   const fetchAllData = async () => {
     await fetchSomeData();
     await fetchRestData()
-}
+  }
 
   const columns = useMemo(() => getColumns(t, handleUpdate, fetchAllData, setRecord), [t]);
 
@@ -97,14 +97,18 @@ function SearchTable() {
   const searchData = (target: searchItem) => {
     console.log(target);
     const { id, name, phone } = target;
-    if (id === undefined && name === undefined && phone === undefined) {
+    if (id === "" && name === undefined && phone === undefined) {
       return false
     }
-    let find = (id === undefined) ? phone : id;
+    let find = (id === "") ? phone : id;
     find = (find === undefined) ? name : find;
-    let flag = (id === undefined) ? 'phone_number' : 'account_id';
-    flag = (phone === undefined) ? 'username' : flag;
+    let flag = (id === "") ? 'phone_number' : 'account_id';
+    flag = (id === "" && phone === undefined) ? 'username' : flag;
+    console.log(find, flag);
+
     primaryData.map((item) => {
+      console.log(item);
+
       if (item[flag] === find) {
         setData([item])
       }

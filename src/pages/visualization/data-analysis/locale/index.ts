@@ -1,0 +1,38 @@
+const i18n = {
+  'en-US': {
+    'menu.visualization': 'Data Visualization',
+    'menu.visualization.analysis': 'Analysis',
+    'dataAnalysis.yesterday': 'Yesterday',
+    'dataAnalysis.title.publicOpinion': 'Data Analysis',
+    'dataAnalysis.publicOpinion.visitor': 'Total visitors',
+    'dataAnalysis.publicOpinion.content': 'Total content publishing',
+    'dataAnalysis.publicOpinion.comment': 'Total comments',
+    'dataAnalysis.publicOpinion.share': 'Total share',
+    'dataAnalysis.title.publishingRate': 'Use rate',
+    'dataAnalysis.title.publishingTiming': 'FreeCar Online',
+    'dataAnalysis.title.authorsList': 'Driver list',
+    'dataAnalysis.authorTable.rank': 'Rank    ',
+    'dataAnalysis.authorTable.author': 'Driver',
+    'dataAnalysis.authorTable.content': 'Order volume',
+    'dataAnalysis.authorTable.click': 'mileage volume',
+  },
+  'zh-CN': {
+    'menu.visualization': '数据可视化',
+    'menu.visualization.analysis': '分析页',
+    'dataAnalysis.yesterday': '较昨日',
+    'dataAnalysis.title.publicOpinion': '数据分析',
+    'dataAnalysis.publicOpinion.visitor': '访问总人数',
+    'dataAnalysis.publicOpinion.content': '汽车上新数',
+    'dataAnalysis.publicOpinion.comment': '使用汽车总量',
+    'dataAnalysis.publicOpinion.share': '分享总量',
+    'dataAnalysis.title.publishingRate': '汽车使用比率',
+    'dataAnalysis.title.publishingTiming': '在线人数分析',
+    'dataAnalysis.title.authorsList': '活跃司机榜单',
+    'dataAnalysis.authorTable.rank': '排名',
+    'dataAnalysis.authorTable.author': '司机',
+    'dataAnalysis.authorTable.content': '接单数',
+    'dataAnalysis.authorTable.click': '总里程',
+  },
+};
+
+export default i18n;

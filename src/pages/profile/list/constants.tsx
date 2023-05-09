@@ -33,34 +33,34 @@ export function getColumns(
   };
   return [
     {
-      title: 'AccountID',
+      title: t['accountId'],
       dataIndex: 'account_id',
       render: (value) => <Text key={`${value}`} copyable>{value}</Text>,
     },
     {
-      title: 'Photo',
+      title: t['Photo'],
       dataIndex: 'photo_blob_id',
       render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,
     },
     {
-      title: 'LicNumber',
+      title: t['LicNumber'],
       dataIndex: 'profile.identity.lic_number',
       render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,
     },
     {
-      title: 'Name',
+      title: t['Name'],
       dataIndex: 'profile.identity.name',
     },
     {
-      title: 'Gender',
+      title: t['Gender'],
       dataIndex: 'profile.identity.gender',
     },
     {
-      title: 'Birth',
+      title: t['Birth'],
       dataIndex: 'profile.identity.birth_date_millis',
     },
     {
-      title: 'IdentityStatus',
+      title: t['IdentityStatus'],
       dataIndex: 'profile.identity_status',
       render: (x) => {
 

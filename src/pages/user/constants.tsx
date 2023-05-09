@@ -59,7 +59,7 @@ export function getColumns(
       dataIndex: 'phone_number',
     },
     {
-      title: 'Avatar',
+      title: t['Avatar'],
       dataIndex: 'avatar_blob_id',
     },
     {
@@ -82,7 +82,7 @@ export function getColumns(
           <Popconfirm
             focusLock
             title='Confirm'
-            content='Are you sure you want to delete?'
+            content={t['Are you sure you want to delete?']}
             onOk={() => {
               Message.info({
                 content: 'ok',

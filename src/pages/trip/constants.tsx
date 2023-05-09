@@ -44,25 +44,25 @@ export function getColumns(
   };
   return [
     {
-      title: 'ID',
+      title: t['ID'],
       dataIndex: 'id',
       ellipsis:true,
       render: (value) => <Text key={`${value}`} ellipsis={true} copyable>{value}</Text>,
     },
     {
-      title: 'AccountId',
+      title: t['AccountId'],
       dataIndex: 'trip.account_id',
       ellipsis:true,
 
       render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,
     },
     {
-      title: 'CarId',
+      title: t['CarId'],
       dataIndex: 'trip.car_id',
       render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,
     },
     {
-      title: 'Trip',
+      title: t['Trip'],
       dataIndex: 'trip',
       width:"14vw",
       render: (trip) => (
@@ -73,8 +73,8 @@ export function getColumns(
           <CollapseItem header='Start' name='1'>
             <Collapse defaultActiveKey={'1.4'}>
               <CollapseItem header={'Location'} name='1.1'>
-                <strong>Latitude: </strong> {trip.start.location.latitude}<br />
-                <strong> Longitude:</strong>{trip.start.location.longitude}
+                <strong>{`${t['Latitude']}`}: </strong> {trip.start.location.latitude}<br />
+                <strong>{`${t['Longitude']}`}: </strong>{trip.start.location.longitude}
               </CollapseItem>
               <CollapseItem header='FeeCent' name='1.2'>
                 {trip.start.fee_cent}
@@ -93,8 +93,8 @@ export function getColumns(
           <CollapseItem header='Current' name='2'>
             <Collapse defaultActiveKey={'2.4'}>
               <CollapseItem header={'Location'} name='2.1'>
-                <strong>Latitude: </strong> {trip.current.location.latitude}<br />
-                <strong> Longitude:</strong>{trip.current.location.longitude}
+                <strong>{`${t['Latitude']}`}: </strong> {trip.current.location.latitude}<br />
+                <strong> {`${t['Longitude']}`}:</strong>{trip.current.location.longitude}
               </CollapseItem>
               <CollapseItem header='FeeCent' name='2.2'>
                 {trip.current.fee_cent}
@@ -113,8 +113,8 @@ export function getColumns(
           <CollapseItem header='End' name='3'>
             <Collapse defaultActiveKey={'3.4'}>
               <CollapseItem header={'Location'} name='3.1'>
-                <strong>Latitude: </strong> {trip.end.location.latitude}<br />
-                <strong> Longitude:</strong>{trip.end.location.longitude}
+                <strong>{`${t['Latitude']}`}: </strong> {trip.end.location.latitude}<br />
+                <strong>{`${t['Longitude']}`}: </strong>{trip.end.location.longitude}
               </CollapseItem>
               <CollapseItem header='FeeCent' name='3.2'>
                 {trip.end.fee_cent}
@@ -134,7 +134,7 @@ export function getColumns(
       )
     },
     {
-      title: 'Status',
+      title: t['Status'],
       dataIndex: 'trip.status',
       align: 'center',
       render: (x) => {
@@ -142,7 +142,7 @@ export function getColumns(
       }
     },
     {
-      title: 'IdentityID',
+      title: t['IdentityID'],
       dataIndex: 'trip.identity_id',
       ellipsis:true,
       render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,

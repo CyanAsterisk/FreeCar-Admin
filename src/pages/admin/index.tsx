@@ -2,23 +2,27 @@ import React, { useState } from 'react';
 import { Descriptions, Card, Button } from '@arco-design/web-react';
 import ChangePassword from './password/index'
 import './index.less'
+import useLocal from '@/utils/useLocale'
+import local from './local'
 
-const data = [
-    {
-        label: 'Name',
-        value: 'Admin',
-    },
-    {
-        label: 'Residence',
-        value: 'Chongqing',
-    },
-    {
-        label: 'Address',
-        value: 'CQUPT',
-    },
-];
+
 
 const App = () => {
+    const t = useLocal(local)
+    const data = [
+        {
+            label: t['Name'],
+            value: t['Admin'],
+        },
+        {
+            label: t['Residence'],
+            value: t['Chongqing'],
+        },
+        {
+            label:t[ 'Address'],
+            value: 'CQUPT',
+        },
+    ];
     const hacndleClick = () => {
         setShowstate('block')
     }
@@ -29,7 +33,7 @@ const App = () => {
                 <ChangePassword showIntialization={showIntialization} setShowState={setShowstate} />
                 <Descriptions
                     column={1}
-                    title='User Info'
+                    title={t['User Info']}
                     data={data}
                     style={{ marginBottom: 20 }}
                     labelStyle={{ paddingRight: 36 }}

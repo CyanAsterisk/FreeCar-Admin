@@ -5,13 +5,15 @@ import './index.less'
 import { IconCloseCircle } from '@arco-design/web-react/icon';
 import changePassword from '@/services/changePassword';
 import { useNavigate } from 'react-router-dom';
-
+import useLocale from '@/utils/useLocale';
+import local from '../local'
 interface IChangePasswordProps {
     setShowState: (display) => void,
     showIntialization: string
 }
 
 const ChangePassword = ((props: IChangePasswordProps) => {
+    const t = useLocale(local)
     //通过父组件传参来决定是否展示 UpdateUser 页面
     const { showIntialization, setShowState } = props
     const [form] = Form.useForm();
@@ -23,7 +25,7 @@ const ChangePassword = ((props: IChangePasswordProps) => {
     }
     const toLogin = () => {
         localStorage.removeItem('token')
-        navigate("/login",{ replace: true })
+        navigate("/login", { replace: true })
     }
     //提交请求
     const handleClick = async () => {
@@ -75,21 +77,21 @@ const ChangePassword = ((props: IChangePasswordProps) => {
                     </Button>
                 </div>
                 <FormItem
-                    label='old passsword'
+                    label={t['old passsword']}
                     field='oldPassword'
                     required
                 >
                     <Input.Password placeholder='please enter the username' />
                 </FormItem>
                 <FormItem
-                    label='new password'
+                    label={t['new password']}
                     field='newPassword'
                     required
                 >
                     <Input.Password placeholder='please enter the new password' />
                 </FormItem>
                 <FormItem
-                    label='confirm password'
+                    label={t['confirm password']}
                     field='confirmPassword'
                     rules={[{
                         validator: (v, cb) => {
@@ -107,7 +109,7 @@ const ChangePassword = ((props: IChangePasswordProps) => {
 
                 <FormItem wrapperCol={{ offset: 5 }}>
                     <Button type='primary' htmlType='submit' onClick={handleClick}>
-                        Submit
+                    {t['Submit']}
                     </Button>
                     <Button
                         style={{ marginLeft: 2 }}
@@ -115,7 +117,7 @@ const ChangePassword = ((props: IChangePasswordProps) => {
                             form.resetFields();
                         }}
                     >
-                        Reset
+                        {t['Reset']}
                     </Button>
                 </FormItem>
             </Form>

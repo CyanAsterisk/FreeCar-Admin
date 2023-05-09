@@ -6,8 +6,8 @@ import { ContentType } from './../pages/user/constants';
 import Axios from 'axios'
 
 const axios = Axios.create({
-    baseURL: 'https://127.0.0.1:9991',
-    
+    baseURL: 'https://freecar.lanlance.cn',
+
     timeout: 5000,
 });
 
@@ -23,12 +23,12 @@ axios.interceptors.request.use((config) => {
 //*接收到请求后的操作
 axios.interceptors.response.use(
     (res) => {
-      
+
         return res;
     },
     (err) => {
-      console.log(err);
-      
+        console.log(err);
+
         return Promise.reject(err)
     })
 

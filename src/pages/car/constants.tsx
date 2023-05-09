@@ -33,44 +33,44 @@ export function getColumns(
   };
   return [
     {
-      title: 'ID',
+      title: t['ID'],
       dataIndex: 'id',
       render: (value) => <Text key={`${value}`} ellipsis={true} copyable>{value}</Text>,
     },
     {
-      title: 'Status',
+      title:t['Status'],
       dataIndex: 'car.status',
     },
     {
-      title: 'DriverID',
+      title: t['DriverID'],
       dataIndex: 'car.driver.id',
     },
     {
-      title: 'DriverAvatar',
+      title: t['DriverAvatar'],
       dataIndex: 'car.driver.avatar_url',
     },
     {
-      title: 'Latitude',
+      title: t['Latitude'],
       dataIndex: 'car.position.latitude',
       render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,
 
     },
     {
-      title: 'Longitude',
+      title: t['Longitude'],
       dataIndex: 'car.position.longitude',
       render: (value) => <Text key={`${value}`} ellipsis={true} >{value}</Text>,
     },
     {
-      title: 'TripID',
+      title: t['TripID'],
       dataIndex: 'car.trip_id',
     },
     {
-      title: 'Power',
+      title: t['Power'],
       dataIndex: 'car.power',
       ellipsis:true,
     },
     {
-      title: 'PlateNumer',
+      title: t['PlateNumer'],
       dataIndex: 'car.plate_num',
     },
     {
@@ -82,7 +82,7 @@ export function getColumns(
           <Popconfirm
             focusLock
             title='Confirm'
-            content='Are you sure you want to delete?'
+            content={t['Are you sure you want to delete?']}
             onOk={() => {
               Message.info({
                 content: 'ok',

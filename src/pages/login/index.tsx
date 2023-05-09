@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import LoginForm from './form';
 import LoginBanner from './banner';
 import styles from './style/index.module.less';
+import './style/index.less'
 function Login() {
   useEffect(() => {
     console.log(document.URL);
@@ -24,9 +25,9 @@ function Login() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.logo}>
+      {/* <div className={styles.logo}>
         <div className={styles['logo-text']}>FreeCar-Admin</div>
-      </div>
+      </div> */}
       {/* <div className={styles.banner}>
         <div className={styles['banner-inner']}>
           <LoginBanner />

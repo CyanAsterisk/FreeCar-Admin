@@ -53,8 +53,8 @@ function SearchForm(props: {
       >
         <Row gutter={24}>
           <Col span={colSpan}>
-            <Form.Item label={'AccountID'} field="accountId">
-              <Input placeholder={'Please enter the AccountID'} allowClear />
+            <Form.Item label={t['accountId']} field="accountId">
+              <Input placeholder={t['Please enter the AccountID']} allowClear />
             </Form.Item>
           </Col>
         </Row>
@@ -63,7 +63,7 @@ function SearchForm(props: {
         <Button type="primary" icon={<IconSearch />} onClick={handleSubmit}>
           {t['searchTable.form.search']}
         </Button>
-        <Button icon={<IconRefresh />} onClick={handleReset}>
+        <Button icon={<IconRefresh />} onClick={handleReset} style={{ 'margin-top': '1vw' }}>
           {t['searchTable.form.reset']}
         </Button>
       </div>

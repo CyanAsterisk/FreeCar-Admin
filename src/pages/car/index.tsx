@@ -15,7 +15,7 @@ import './mock';
 import { getColumns } from './constants';
 import './style/index.less'
 const { Title } = Typography;
-import AddUser from './components/addCar/index.tsx';
+import AddUser from './components/addCar/index';
 import { getSomeCarInfo, getAllCarInfo } from '@/services/car/car';
 
 interface searchItem {

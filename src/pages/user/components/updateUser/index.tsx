@@ -4,11 +4,14 @@ const FormItem = Form.Item;
 import './index.less'
 import { IconCloseCircle } from '@arco-design/web-react/icon';
 import updateUser, { updateUserInfo } from '../../../../services/user/updateUser'
+
+import useLocale from '@/utils/useLocale';
+import local from '../../locale'
 interface IUpadateUserProps {
     setShowUpdate: (display) => void,
     showUpdate: string,
     record: {
-        account_id:number
+        account_id: number
     }
 }
 
@@ -17,6 +20,8 @@ const UpdateUser = ((props: IUpadateUserProps) => {
     const { showUpdate, setShowUpdate, record } = props
     const [form] = Form.useForm();
     const divRef = useRef(null)
+    const t = useLocale(local)
+
 
     /* 关闭页面 */
     const closeUserAddPage = () => {
@@ -35,12 +40,12 @@ const UpdateUser = ((props: IUpadateUserProps) => {
         if (status === 'success') {
             Notification.success({
                 title: 'Success',
-                content: 'Update user successfully',
+                content: t['Update user successfully'],
             })
         } else {
             Notification.error({
                 title: 'Failed',
-                content: 'Fail to update user',
+                content: t['Fail to update user'],
             })
         }
         form.resetFields();
@@ -71,24 +76,24 @@ const UpdateUser = ((props: IUpadateUserProps) => {
                     </Button>
                 </div>
                 <FormItem
-                    label='Username'
+                    label={t['Username']}
                     field='username'
                     required
                 >
-                    <Input placeholder='please enter the username' />
+                    <Input placeholder={t['Please enter the username']} />
                 </FormItem>
                 <FormItem
-                    label='Phone Number'
+                    label={t['Phone Number']}
                     field='phone_number'
-                    extra='Please enter number'
+                    extra={t['Please enter number']}
                     required
                 >
-                    <InputNumber placeholder='please enter the phone number' />
+                    <InputNumber placeholder={t['Please enter the phone number']} />
                 </FormItem>
 
                 <FormItem wrapperCol={{ offset: 5 }}>
                     <Button type='primary' htmlType='submit' onClick={handleClick}>
-                        Submit
+                        {t['Submit']}
                     </Button>
                     <Button
                         style={{ marginLeft: 2 }}
@@ -96,7 +101,7 @@ const UpdateUser = ((props: IUpadateUserProps) => {
                             form.resetFields();
                         }}
                     >
-                        Reset
+                        {t['Reset']}
                     </Button>
                 </FormItem>
             </Form>

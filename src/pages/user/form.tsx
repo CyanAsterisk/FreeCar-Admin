@@ -54,25 +54,25 @@ function SearchForm(props: {
       >
         <Row gutter={24}>
           <Col span={colSpan}>
-            <Form.Item label={'Account ID'} field="id">
-              <Input placeholder={'Please enter the account ID'} allowClear />
+            <Form.Item label={t['accountId']} field="id">
+              <Input placeholder={t['accountId.input']} allowClear />
             </Form.Item>
           </Col>
           <Col span={colSpan}>
-            <Form.Item label={'Username'} field="name" >
+            <Form.Item label={t['Username']} field="name" >
               <Input
                 allowClear
-                placeholder={'Please enter the username'}
+                placeholder={t['Please enter the username']}
               />
             </Form.Item>
           </Col>
         </Row>
         <Row>
           <Col span={colSpan}>
-            <Form.Item label={'Phone Number'} field="phone">
+            <Form.Item label={t['Phone Number']} field="phone">
               <Input
                 allowClear
-                placeholder={'Please enter the phone number'}
+                placeholder={t['Please enter the phone number']}
               />
             </Form.Item>
           </Col>
