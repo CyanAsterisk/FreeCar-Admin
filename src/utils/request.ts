@@ -6,7 +6,7 @@ import { ContentType } from './../pages/user/constants';
 import Axios from 'axios'
 
 const axios = Axios.create({
-    baseURL: 'https://freecar.lanlance.cn',
+    baseURL: 'http://localhost:8080',
 
     timeout: 5000,
 });
