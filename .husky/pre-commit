@@ -4,3 +4,4 @@
 
 # yarn run pre-commit
 
+npm run pre-commit
